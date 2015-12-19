@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'test_bench'
+rescue LoadError
+  require_relative '../init'
+end
+
+TestBench::CLI.(ARGV)
