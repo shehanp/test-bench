@@ -16,6 +16,11 @@ module TestBench
       instance
     end
 
+    def negate
+      failed = !passed
+      self.class.new failed, backtrace, detail
+    end
+
     def passed?
       passed
     end

@@ -22,6 +22,12 @@ module TestBench
       end
     end
 
+    def refute check_result, detail=nil
+      check_result = TestBench::CheckResult(check_result)
+
+      assert check_result.negate, detail
+    end
+
     class Failed < StandardError
       attr_reader :check_result
 
