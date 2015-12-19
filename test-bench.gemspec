@@ -4,6 +4,7 @@ Gem::Specification.new do |s|
   s.version = '0.1.0'
 
   s.authors = ['Nathan Ladd']
+  s.homepage = 'https://github.com/ntl/test-bench'
   s.email = 'nathanladd+github@gmail.com'
   s.licenses = %w(MIT)
   s.summary = 'Simple test framework based around running scripts'
@@ -23,5 +24,5 @@ methods like describe/context/specify/it.
   s.files = Dir.glob 'lib/**/*'
   s.platform = Gem::Platform::RUBY
 
-  s.add_runtime_dependency 'extended-logger'
+  s.add_runtime_dependency 'extended_logger', '~> 0'
 end
