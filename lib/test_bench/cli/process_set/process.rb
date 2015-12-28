@@ -62,6 +62,8 @@ module TestBench
         end
 
         def finish
+          return if process_exited?
+
           InternalLogger.trace "Reading closing message (File: #{file.inspect})"
           parent_read_io.read 1
           InternalLogger.debug "Read closing message (File: #{file.inspect})"
@@ -104,6 +106,13 @@ module TestBench
           end
 
           $stderr.puts lines
+        end
+
+        def process_exited?
+          ::Process.kill 0, pid
+          false
+        rescue Errno::ESRCH
+          true
         end
 
         def start

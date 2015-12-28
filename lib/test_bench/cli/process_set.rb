@@ -82,13 +82,15 @@ module TestBench
         true
       end
 
-      def reap reads
-        set.delete_if do |process|
-          next unless reads.include? process.fd
+      def reap reads=nil
+        reads ||= []
 
-          InternalLogger.trace "Reaping (File: #{process.file}, PID: #{process.pid})"
-          process.finish or self.passed = false
-          true
+        set.delete_if do |process|
+          if process.process_exited? or reads.include? process.fd
+            InternalLogger.trace "Reaping (File: #{process.file}, PID: #{process.pid})"
+            process.finish or self.passed = false
+            true
+          end
         end
         set
       end
@@ -98,9 +100,12 @@ module TestBench
       end
 
       def shutdown
+        reap
+
         set.each do |process|
           ::Process.kill "TERM", process.pid
         end
+
         ::Process.waitall
       end
 
