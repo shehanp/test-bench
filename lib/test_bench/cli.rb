@@ -44,6 +44,10 @@ module TestBench
           exit 0
         end
 
+        parser.on '-I', '--include DIR', 'Adds DIR to the ruby load path before test run' do |dir|
+          $LOAD_PATH.unshift dir unless $LOAD_PATH.include? dir
+        end
+
         parser.on '-n', '--child-count NUM' do |number|
           options.child_count = Integer(number)
         end
@@ -54,6 +58,10 @@ module TestBench
 
         parser.on '-r', '--reverse-backtraces', 'Reverse line ordering of backtraces' do
           options.reverse_backtraces = true
+        end
+
+        parser.on '--require LIBRARY', 'Requires a LIBRARY before test run' do |library|
+          require library
         end
 
         parser.on '-v', '--verbose', 'Increase verbosity level' do
