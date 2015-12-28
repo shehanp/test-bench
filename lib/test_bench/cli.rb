@@ -35,7 +35,7 @@ module TestBench
 
     def parser
       OptionParser.new do |parser|
-        parser.on '-f', '--fail-fast' do
+        parser.on '-f', '--fail-fast', 'Exit immediately after any test script fails' do
           options.fail_fast = true
         end
 
@@ -48,7 +48,7 @@ module TestBench
           $LOAD_PATH.unshift dir unless $LOAD_PATH.include? dir
         end
 
-        parser.on '-n', '--child-count NUM' do |number|
+        parser.on '-n', '--child-count NUM', 'Maximum number of processes to run in parallel' do |number|
           options.child_count = Integer(number)
         end
 
@@ -56,11 +56,11 @@ module TestBench
           options.decrease_verbosity
         end
 
-        parser.on '-r', '--reverse-backtraces', 'Reverse line ordering of backtraces' do
+        parser.on '-R', '--reverse-backtraces', 'Reverse line ordering of backtraces' do
           options.reverse_backtraces = true
         end
 
-        parser.on '--require LIBRARY', 'Requires a LIBRARY before test run' do |library|
+        parser.on '-r', '--require LIBRARY', 'Requires a LIBRARY before test run' do |library|
           require library
         end
 
