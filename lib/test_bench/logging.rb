@@ -1,5 +1,10 @@
 module TestBench
-  Logger = ExtendedLogger.instance
+  Logger = ExtendedLogger.get self, level: 'INFO', device: $stdout
+
+  Logger.formatter = -> severity, datetime, progname, message do
+    timestamp = datetime.strftime '%H:%M:%S.%L'
+    "[#{timestamp}] #{severity} #{progname}: #{message}\n"
+  end
 
   if ENV['TEST_BENCH_INTERNAL_LOGGING'] == 'on'
     InternalLogger = Logger
