@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'test_bench'
-  s.version = '0.2.0'
+  s.version = '0.2.1'
 
   s.authors = ['Nathan Ladd']
   s.homepage = 'https://github.com/ntl/test-bench'
@@ -9,12 +9,13 @@ Gem::Specification.new do |s|
   s.licenses = %w(MIT)
   s.summary = 'Simple test framework based around running scripts'
   s.description = <<-INNER_TEXT
-Unlike popular testing frameworks centered around x-unit or BDD principles,
-test_bench aims to be a simple alternative. Test files are executed by the
-library in complete isolation from one another by using fork(). In this way,
-test runs can be executed in parallel. Assertions are simple pass/fail checks.
-There is a minimal (and optional) DSL for structuring tests using familiar spec
-methods like describe/context/specify/it.
+Simple test framework based around running scripts. Unlike popular testing
+frameworks centered around x-unit or BDD principles, test_bench aims to be a
+simple alternative. Test files are executed by the library in complete isolation
+from one another by using fork(). In this way, test runs can be executed in
+parallel. Assertions are simple pass/fail checks.  There is a minimal (and
+optional) DSL for structuring tests using familiar spec methods like
+describe/context/specify/it.
   INNER_TEXT
 
   s.executables = ['tb']
