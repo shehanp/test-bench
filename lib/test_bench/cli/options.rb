@@ -2,12 +2,14 @@ module TestBench
   class CLI
     class Options
       attr_reader :child_count
+      attr_reader :exclude_pattern
       attr_reader :fail_fast
       attr_reader :reverse_backtraces
 
       def self.build
         instance = new
         instance.child_count = ENV.fetch 'TEST_BENCH_CHILD_COUNT', 1
+        instance.exclude_pattern = ENV.fetch 'TEST_BENCH_EXCLUDE_PATTERN', '^$'
         instance.fail_fast = ENV.fetch 'TEST_BENCH_FAIL_FAST', true
         instance.reverse_backtraces = ENV.fetch 'TEST_BENCH_REVERSE_BACKTRACES', true
         instance
@@ -19,6 +21,10 @@ module TestBench
 
       def decrease_verbosity
         Logger.level += 1
+      end
+
+      def exclude_pattern= pattern
+        @exclude_pattern = Regexp.new pattern
       end
 
       def fail_fast= value

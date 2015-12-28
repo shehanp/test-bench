@@ -64,6 +64,10 @@ module TestBench
           puts "test-bench (#{parser.program_name}) version #{version}"
           exit 0
         end
+
+        parser.on '-x', '--exclude PATTERN', 'Filter out files matching PATTERN' do |pattern|
+          options.exclude_pattern = pattern
+        end
       end
     end
 

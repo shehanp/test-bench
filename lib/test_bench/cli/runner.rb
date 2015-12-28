@@ -28,13 +28,23 @@ module TestBench
         set.()
       end
 
-      def files
-        @files ||= paths.flat_map do |path|
+      def expand_paths
+        paths.flat_map do |path|
           if path.end_with? '.rb'
             path
           else
             Dir["#{path}/**/*.rb"]
           end
+        end
+      end
+
+      def files
+        @files ||= filter expand_paths
+      end
+
+      def filter files
+        files.reject do |file|
+          options.exclude_pattern.match file
         end
       end
     end
