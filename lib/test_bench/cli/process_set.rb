@@ -103,7 +103,7 @@ module TestBench
         reap
 
         set.each do |process|
-          ::Process.kill "TERM", process.pid
+          process.term
         end
 
         ::Process.waitall

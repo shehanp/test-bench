@@ -22,9 +22,6 @@ module TestBench
         end
 
         set = ProcessSet.build files, options
-
-        Signal.trap 'INT' do set.shutdown end
-
         set.()
       end
 

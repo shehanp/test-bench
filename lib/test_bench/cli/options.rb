@@ -10,7 +10,7 @@ module TestBench
         instance = new
         instance.child_count = ENV.fetch 'TEST_BENCH_CHILD_COUNT', 1
         instance.exclude_pattern = ENV.fetch 'TEST_BENCH_EXCLUDE_PATTERN', '^$'
-        instance.fail_fast = ENV.fetch 'TEST_BENCH_FAIL_FAST', true
+        instance.fail_fast = ENV.fetch 'TEST_BENCH_FAIL_FAST', false
         instance.reverse_backtraces = ENV.fetch 'TEST_BENCH_REVERSE_BACKTRACES', true
         instance
       end

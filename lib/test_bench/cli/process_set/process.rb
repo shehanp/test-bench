@@ -23,6 +23,8 @@ module TestBench
         end
 
         def child_process
+          Signal.trap 'INT' do exit 1 end
+
           parent_read_io.close
 
           Logger.trace "Starting Test Script (File: #{file.inspect})"
@@ -109,16 +111,24 @@ module TestBench
         end
 
         def process_exited?
-          ::Process.kill 0, pid
-          false
-        rescue Errno::ESRCH
+          if signal 0 then false else true end
+        end
+
+        def signal signal
+          ::Process.kill signal, pid
           true
+        rescue Errno::ESRCH
+          false
         end
 
         def start
           pid
           child_write_io.close
           freeze
+        end
+
+        def term
+          signal 'TERM'
         end
       end
     end
