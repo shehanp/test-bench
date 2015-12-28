@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name = 'test_bench'
-  s.version = '0.1.0'
+  s.version = '0.2.0'
 
   s.authors = ['Nathan Ladd']
   s.homepage = 'https://github.com/ntl/test-bench'
