@@ -1,4 +1,5 @@
 require 'extended_logger'
+require 'fiber'
 require 'optparse'
 
 require 'test_bench/assert'

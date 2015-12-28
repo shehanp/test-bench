@@ -42,8 +42,8 @@ module TestBench
           nil
 
         rescue => error
+          Fiber.yield error
           Logger.fail SpecDSL.sentence if log
-          raise error
 
         ensure
           SpecDSL.sentence = old_sentence

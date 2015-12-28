@@ -1,7 +1,5 @@
 require_relative './test_init'
 
-begin
-
 describe 'This' do
   it 'Should be a Sentence' do
     assert true
@@ -12,9 +10,16 @@ describe 'This' do
       assert false
     end
   end
-end
 
-rescue => error
-end
+  context 'Is Another' do
+    specify 'Sentence' do
+      assert false
+    end
+  end
 
-assert error
+  context 'Is Yet Another' do
+    specify 'Sentence' do
+      assert false
+    end
+  end
+end

@@ -28,10 +28,20 @@ module TestBench
           Logger.trace "Starting Test Script (File: #{file.inspect})"
 
           begin
-            filter_line_no = __LINE__; load file
+            exit_status = 0
+            filter_line_no = __LINE__ ; fiber = Fiber.new do load file; nil end
+
+            while error = fiber.resume
+              print_stacktrace error, filter_line_no
+              exit_status = 1
+            end
+
+            exit exit_status
+
           rescue => error
             print_stacktrace error, filter_line_no
             exit 1
+
           ensure
             InternalLogger.trace do
               "Writing closing message (File: #{file.inspect})"
