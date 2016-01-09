@@ -9,7 +9,7 @@ module TestBench
   if ENV['TEST_BENCH_INTERNAL_LOGGING'] == 'on'
     InternalLogger = Logger
   else
-    InternalLogger = ExtendedLogger.new '/dev/null'
+    InternalLogger = ExtendedLogger::NullLogger
   end
 
   def self.set_log_level level
