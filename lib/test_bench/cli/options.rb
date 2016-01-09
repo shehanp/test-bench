@@ -4,6 +4,7 @@ module TestBench
       attr_reader :child_count
       attr_reader :exclude_pattern
       attr_reader :fail_fast
+      attr_writer :log_level
       attr_reader :reverse_backtraces
 
       def self.build
@@ -20,7 +21,7 @@ module TestBench
       end
 
       def decrease_verbosity
-        Logger.level += 1
+        self.log_level += 1
       end
 
       def exclude_pattern= pattern
@@ -32,7 +33,11 @@ module TestBench
       end
 
       def increase_verbosity
-        Logger.level -= 1
+        self.log_level -= 1
+      end
+
+      def log_level
+        @log_level ||= 0
       end
 
       def reverse_backtraces= value

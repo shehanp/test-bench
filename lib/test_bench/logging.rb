@@ -12,6 +12,11 @@ module TestBench
     InternalLogger = ExtendedLogger.new '/dev/null'
   end
 
+  def self.set_log_level level
+    ExtendedLogger.default_log_level = level
+    Logger.level = level
+  end
+
   module Logging
     def self.activate
       Object.send :include, Logging
