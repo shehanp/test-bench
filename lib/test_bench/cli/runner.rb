@@ -17,9 +17,7 @@ module TestBench
       end
 
       def call
-        TestBench.set_log_level options.log_level
-
-        InternalLogger.data do
+        InternalLogger.debug do
           "Files: #{files * ', '}"
         end
 

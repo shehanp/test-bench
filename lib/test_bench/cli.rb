@@ -20,7 +20,10 @@ module TestBench
     def call
       parser.parse! argv
 
-      InternalLogger.data do
+      ExtendedLogger.verbosity = options.log_level
+      TestBench.logger.level += options.log_level
+
+      InternalLogger.debug do
         require 'json'
         json = JSON.pretty_generate options.to_h
         "Test bench options:\n#{json}"

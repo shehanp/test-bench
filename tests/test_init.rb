@@ -1,3 +1,4 @@
-require_relative '../init'
+require 'date'
+require 'stringio'
 
 TestBench.activate

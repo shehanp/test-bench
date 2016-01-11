@@ -1,50 +1,83 @@
 module TestBench
   module Assert
+    include TestBench::Logging
+
+    def self.call subject, message_or_mod, negate=nil, &block
+      block ||= -> do subject end
+
+      if message_or_mod.is_a? Module
+        assertions = message_or_mod
+      else
+        message = message_or_mod
+        assertions = resolve_assertions_module subject
+      end
+
+      message ||= message.to_s
+
+      subject.extend AssertionLogger
+      subject.extend assertions if assertions
+
+      if block.arity == 0
+        passed = subject.instance_exec &block
+      else
+        passed = subject.instance_exec subject, &block
+      end
+
+      passed = !passed if negate
+
+      logger.assertion do
+        assertion_message subject, passed, message
+      end
+
+      unless passed
+        stack_frame = caller_locations[1]
+
+        line = stack_frame.lineno
+        file = stack_frame.path
+
+        logger.fatal %{Assertion failure (Line: #{line}, File: #{file.inspect})}
+      end
+
+      raise Failure unless passed
+    end
+
+    def self.assertion_message subject, passed, message
+      verb = if passed then verb = 'passed' else verb = 'failed' end
+
+      if message.empty?
+        "Assertion #{verb} (Target: #{subject.inspect})"
+      else
+        "Assertion #{verb} (Message: #{message.inspect}, Target: #{subject.inspect})"
+      end
+    end
+
+    def self.resolve_assertions_module subject
+      if subject.is_a? Module
+        if subject.const_defined? :Assertions
+          return subject.const_get :Assertions
+        end
+      elsif subject.class.const_defined? :Assertions
+        return subject.class.const_get :Assertions
+      end
+    end
+
+    def assert subject, message_or_module=nil, &block
+      Assert.(subject, message_or_module, &block)
+    end
+
+    def refute subject, message_or_module=nil, &block
+      Assert.(subject, message_or_module, true, &block)
+    end
+
     def self.activate
       Object.send :include, Assert
     end
 
-    def assert check_result, detail=nil
-      check_result = TestBench::CheckResult(check_result)
-      detail ||= check_result.detail
+    Failure = Class.new StandardError
 
-      Logger.debug do
-        if detail
-          "Asserted (Detail: #{detail}, Passed: #{check_result.passed?})"
-        else
-          "Asserted (Passed: #{check_result.passed?})"
-        end
-      end
-
-      unless check_result.passed?
-        Logger.fatal detail if detail
-        raise Failed.new check_result
-      end
-    end
-
-    def refute check_result, detail=nil
-      check_result = TestBench::CheckResult(check_result)
-
-      assert check_result.negate, detail
-    end
-
-    class Failed < StandardError
-      attr_reader :check_result
-
-      def initialize check_result
-        @check_result = check_result
-      end
-
-      def backtrace
-        backtrace_locations.map &:to_s
-      end
-
-      def backtrace_locations
-        check_result.backtrace_locations
-      end
-
-      def to_s
-        'Assertion failed'.freeze
+    module AssertionLogger
+      def __logger
+        TestBench.logger
       end
     end
   end

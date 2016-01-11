@@ -1,29 +1,32 @@
 module TestBench
-  Logger = ExtendedLogger.get self, level: 'INFO', device: $stdout
-
-  Logger.formatter = -> severity, datetime, progname, message do
-    timestamp = datetime.strftime '%H:%M:%S.%L'
-    "[#{timestamp}] #{severity} #{progname}: #{message}\n"
-  end
-
-  if ENV['TEST_BENCH_INTERNAL_LOGGING'] == 'on'
-    InternalLogger = Logger
-  else
-    InternalLogger = ExtendedLogger::NullLogger
-  end
-
-  def self.set_log_level level
-    ExtendedLogger.default_log_level = level
-    Logger.level = level
-  end
-
   module Logging
-    def self.activate
-      Object.send :include, Logging
+    class << self
+      attr_writer :logger
+      attr_writer :internal_logger
+
+      def configure *arguments
+        logger = Logger.build *arguments
+
+        self.logger = logger
+      end
+
+      def logger
+        @logger ||= configure nil
+      end
+
+      def internal_logger
+        @internal_logger ||= ::Logger.new nil
+      end
     end
 
     def logger
-      TestBench::Logger
+      Logging.logger
+    end
+
+    def internal_logger
+      Logging.internal_logger
     end
   end
+
+  extend Logging
 end
