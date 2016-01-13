@@ -12,7 +12,6 @@ module TestBench
 
       message ||= message.to_s
 
-      subject.extend AssertionLogger
       subject.extend assertions if assertions
 
       if block.arity == 0
@@ -72,11 +71,5 @@ module TestBench
     end
 
     Failure = Class.new StandardError
-
-    module AssertionLogger
-      def assertion_logger
-        TestBench.logger
-      end
-    end
   end
 end
