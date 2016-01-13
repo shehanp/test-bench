@@ -17,7 +17,7 @@ module TestBench
       end
 
       def call
-        InternalLogger.debug do
+        TestBench.internal_logger.debug do
           "Files: #{files * ', '}"
         end
 
@@ -30,7 +30,8 @@ module TestBench
           if path.end_with? '.rb'
             path
           else
-            Dir["#{path}/**/*.rb"]
+            glob = File.join path, '**/*.rb'
+            Dir[glob]
           end
         end
       end

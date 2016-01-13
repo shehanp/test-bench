@@ -1,11 +1,11 @@
 module TestBench
   module Logging
     class Logger < ExtendedLogger
-      self.levels = %w(DATA ASSERTION HEADING PASS PENDING FAILURE FATAL)
+      self.levels = %w(DATA INFO ERROR STEP PASS SKIP FAIL)
 
       attr_writer :indenter
 
-      def self.build *arguments
+      def self.build *;
         indenter = Indenter.new
 
         instance = super
@@ -41,7 +41,11 @@ module TestBench
         attr_writer :indentation
 
         def call severity, datetime, progname, message
-          indent "#{message}\n"
+          if message == '(empty log message)'.freeze
+            indent "\n"
+          else
+            indent "#{message}\n"
+          end
         end
 
         def decrease_indentation

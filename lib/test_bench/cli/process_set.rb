@@ -71,14 +71,14 @@ module TestBench
       end
 
       def tick
-        InternalLogger.debug "Starting tick (Processes: #{set.size})"
+        TestBench.internal_logger.debug "Starting tick (Processes: #{set.size})"
 
         loop do
           reads, _, _ = IO.select set.map(&:fd), [], [], 10
           reap reads and break if reads
         end
 
-        InternalLogger.info "Finished tick (Processes: #{set.size})"
+        TestBench.internal_logger.info "Finished tick (Processes: #{set.size})"
         true
       end
 
@@ -87,7 +87,7 @@ module TestBench
 
         set.delete_if do |process|
           if process.process_exited? or reads.include? process.fd
-            InternalLogger.debug "Reaping (File: #{process.file}, PID: #{process.pid})"
+            TestBench.internal_logger.debug "Reaping (File: #{process.file}, PID: #{process.pid})"
             process.finish or self.passed = false
             true
           end

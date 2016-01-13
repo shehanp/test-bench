@@ -8,12 +8,16 @@ context 'Some Context' do
     context do
       test 'Actual Test' do
         assert true do
-          __logger.data "some\ndata"
+          assertion_logger.data "some\ndata"
           true
         end
       end
 
       test 'Pending Test'
+
+      test do
+        assert true
+      end
     end
   end
 end
@@ -26,7 +30,8 @@ Some Context
       data
       Assertion passed (Target: true)
     Pending Test
-\\n
+    Test
+      Assertion passed (Target: true)
 TEXT
 
 assert log_output.string == expected_output

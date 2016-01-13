@@ -27,7 +27,7 @@ module TestBench
 
           parent_read_io.close
 
-          TestBench.logger.heading "Starting Test Script (File: #{file.inspect})"
+          TestBench.logger.info file
 
           begin
             exit_status = 0
@@ -45,15 +45,17 @@ module TestBench
             exit 1
 
           ensure
-            InternalLogger.debug do
+            TestBench.internal_logger.debug do
               "Writing closing message (File: #{file.inspect})"
             end
 
             child_write_io.write "\x00"
 
-            InternalLogger.debug do
+            TestBench.internal_logger.debug do
               "Wrote closing message (File: #{file.inspect})"
             end
+
+            TestBench.logger.pass ''
           end
 
           exit 0
@@ -66,14 +68,14 @@ module TestBench
         def finish
           return if process_exited?
 
-          InternalLogger.debug "Reading closing message (File: #{file.inspect})"
+          TestBench.internal_logger.debug "Reading closing message (File: #{file.inspect})"
           parent_read_io.read 1
-          InternalLogger.info "Read closing message (File: #{file.inspect})"
+          TestBench.internal_logger.info "Read closing message (File: #{file.inspect})"
 
-          InternalLogger.debug "Waiting for process to close (File: #{file.inspect})"
+          TestBench.internal_logger.debug "Waiting for process to close (File: #{file.inspect})"
           _, status = ::Process.wait2 pid
           status = status.exitstatus
-          InternalLogger.info "Process closed (File: #{file.inspect}, Status: #{status.inspect})"
+          TestBench.internal_logger.info "Process closed (File: #{file.inspect}, Status: #{status.inspect})"
 
           status == 0
         end

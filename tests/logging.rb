@@ -6,13 +6,11 @@ context 'Logging' do
 
     TestBench::Logging.configure output
 
-    extend TestBench::Logging
-
-    logger.heading 'Some Context'
-    logger.indent
-    logger.heading 'Nested Context'
-    logger.deindent
-    logger.heading 'Some Other Context'
+    TestBench.logger.step 'Some Context'
+    TestBench.logger.indent
+    TestBench.logger.step 'Nested Context'
+    TestBench.logger.deindent
+    TestBench.logger.step 'Some Other Context'
 
     assert output.string == <<~TEXT
     Some Context

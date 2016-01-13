@@ -6,4 +6,6 @@ rescue LoadError
   require_relative '../init'
 end
 
+require 'test_bench/cli'
+
 TestBench::CLI.(ARGV)

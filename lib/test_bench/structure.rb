@@ -1,48 +1,93 @@
 module TestBench
   module Structure
-    extend Logging
-
     def self.activate
       Object.send :include, self
     end
 
     def context message=nil, &block
+      indented = false
+
       if message
-        logger.heading message
-        logger.indent
+        TestBench.logger.step do
+          indented = true
+          message
+        end
       end
 
-      old_logger = logger
+      TestBench.logger.indent if indented
+
+      # If TestBench's logger is compromised during the execution, restore it.
+      # This is mainly useful for scripts that test TestBench itself.
+      old_logger = TestBench.logger
+
+      Structure.increase_nesting
 
       begin
         block.() if block
 
       ensure
-        if message
-          logger.indentation = old_logger.indentation
-          logger.deindent
+        TestBench.logger = old_logger
+        TestBench.logger.deindent if indented
 
-          if logger.indentation.zero?
-            logger.heading "\n"
-          end
+        Structure.decrease_nesting
+        if Structure.top_level? and Structure.errors.any?
+          exit 1
         end
       end
     end
 
-    def test message, &block
-      logger.heading message
-      logger.indent
+    def test message=nil, &block
+      message ||= 'Test'
+      if block
+        context message do
 
-      old_logger = logger
+          begin
+            block.()
 
-      begin
-        block.() if block
+          rescue => error
+            if error.is_a? Assert::Failure
+              TestBench.logger.fail "Test #{message.inspect} failed"
+            else
+              TestBench.logger.indent
+              TestBench.logger.error error.backtrace.map(&:to_s).reverse.join("\n")
+              TestBench.logger.deindent
 
-      ensure
-        if message
-          logger.indentation = old_logger.indentation
-          logger.deindent
+              TestBench.logger.fail "Test #{message.inspect} errored out"
+            end
+
+            if Structure.top_level?
+              raise error
+            else
+              Structure.errors << error
+            end
+          end
         end
+      else
+        context message
+      end
+    end
+
+    class << self
+      attr_writer :nesting
+
+      def decrease_nesting
+        self.nesting -= 1
+      end
+
+      def errors
+        @errors ||= []
+      end
+
+      def increase_nesting
+        self.nesting += 1
+      end
+
+      def nesting
+        @nesting ||= 0
+      end
+
+      def top_level?
+        nesting == 0
       end
     end
   end

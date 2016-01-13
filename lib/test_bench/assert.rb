@@ -1,7 +1,5 @@
 module TestBench
   module Assert
-    include TestBench::Logging
-
     def self.call subject, message_or_mod, negate=nil, &block
       block ||= -> do subject end
 
@@ -25,7 +23,7 @@ module TestBench
 
       passed = !passed if negate
 
-      logger.assertion do
+      TestBench.logger.info do
         assertion_message subject, passed, message
       end
 
@@ -35,7 +33,7 @@ module TestBench
         line = stack_frame.lineno
         file = stack_frame.path
 
-        logger.fatal %{Assertion failure (Line: #{line}, File: #{file.inspect})}
+        TestBench.logger.error %{Assertion failure (Line: #{line}, File: #{file.inspect})}
       end
 
       raise Failure unless passed
@@ -76,7 +74,7 @@ module TestBench
     Failure = Class.new StandardError
 
     module AssertionLogger
-      def __logger
+      def assertion_logger
         TestBench.logger
       end
     end
