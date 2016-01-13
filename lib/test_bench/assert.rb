@@ -65,9 +65,9 @@ module TestBench
         verb = if passed then verb = 'passed' else verb = 'failed' end
 
         if message.nil? or message.empty?
-          "Assertion #{verb} (Target: #{subject.inspect})"
+          "Assertion #{verb} (Subject: #{subject.inspect})"
         else
-          "Assertion #{verb} (Message: #{message.inspect}, Target: #{subject.inspect})"
+          "Assertion #{verb} (Message: #{message.inspect}, Subject: #{subject.inspect})"
         end
       end
     end
