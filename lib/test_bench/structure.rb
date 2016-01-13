@@ -48,15 +48,16 @@ module TestBench
             if error.is_a? Assert::Failure
               TestBench.logger.fail "Test #{message.inspect} failed"
             else
-              TestBench.logger.error "#{error.class}: #{error.message}"
               lines = error.backtrace_locations
+              lines.map! do |line|
+                "    from #{line}"
+              end
+              lines.unshift "#{error.class}: #{error.message}"
 
               lines.reverse! if Configuration.instance.reverse_backtraces?
 
               lines.each do |line|
-                TestBench.logger.error do
-                  "    from #{line}"
-                end
+                TestBench.logger.error line
               end
 
               TestBench.logger.fail "Test #{message.inspect} errored out"
