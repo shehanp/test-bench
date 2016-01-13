@@ -5,21 +5,20 @@ module TestBench
       attr_reader :fail_fast
       attr_reader :files
       attr_writer :passed
-      attr_reader :reverse_backtraces
 
-      def initialize files, child_count, fail_fast, reverse_backtraces
+      def initialize files, child_count, fail_fast
         @child_count = child_count
         @fail_fast = fail_fast
         @files = files
-        @reverse_backtraces = reverse_backtraces
       end
 
-      def self.build files, options
-        child_count = options.child_count
-        fail_fast = options.fail_fast
-        reverse_backtraces = options.reverse_backtraces
+      def self.build files
+        confguration = Configuration.instance
 
-        instance = new files, child_count, fail_fast, reverse_backtraces
+        child_count = confguration.child_count
+        fail_fast = confguration.fail_fast?
+
+        instance = new files, child_count, fail_fast
         instance
       end
 
@@ -65,7 +64,7 @@ module TestBench
       end
 
       def spawn_child file
-        process = Process.build file, reverse_backtraces
+        process = Process.build file
         process.start
         process
       end

@@ -3,22 +3,19 @@ module TestBench
     class ProcessSet
       class Process
         attr_reader :file
-        attr_reader :reverse_backtraces
         attr_reader :parent_read_io
         attr_reader :child_write_io
 
-        def initialize file, reverse_backtraces, parent_read_io, child_write_io
+        def initialize file, parent_read_io, child_write_io
           @file = file
-          @reverse_backtraces = reverse_backtraces
           @parent_read_io = parent_read_io
           @child_write_io = child_write_io
         end
 
-        def self.build file, reverse_backtraces=nil
-          reverse_backtraces ||= false
+        def self.build file
           parent_read_io, child_write_io = IO.pipe
 
-          instance = new file, reverse_backtraces, parent_read_io, child_write_io
+          instance = new file, parent_read_io, child_write_io
           instance
         end
 
@@ -27,22 +24,12 @@ module TestBench
 
           parent_read_io.close
 
-          TestBench.logger.info file
+          TestBench.logger.info file.dup
 
           begin
-            exit_status = 0
-            filter_line_no = __LINE__ ; fiber = Fiber.new do load file; nil end
+            load file
 
-            while error = fiber.resume
-              print_stacktrace error, filter_line_no
-              exit_status = 1
-            end
-
-            exit exit_status
-
-          rescue => error
-            print_stacktrace error, filter_line_no
-            exit 1
+            exit 0
 
           ensure
             TestBench.internal_logger.debug do
@@ -57,8 +44,6 @@ module TestBench
 
             TestBench.logger.pass ''
           end
-
-          exit 0
         end
 
         def fd
@@ -84,32 +69,6 @@ module TestBench
           @pid ||= fork do
             child_process
           end
-        end
-
-        def print_stacktrace error, filter_line_no
-          backtrace = error.backtrace_locations
-
-          backtrace = backtrace.take_while do |location|
-            start_filtering = [
-              location.lineno == filter_line_no,
-              location.absolute_path == __FILE__,
-            ].all?
-
-            not start_filtering
-          end
-
-          first_line = "#{backtrace.shift}: #{error} (#{error.class})"
-
-          lines = backtrace.map do |location|
-            "\tfrom #{location}"
-          end
-          lines.unshift first_line
-
-          if reverse_backtraces
-            lines.reverse!
-          end
-
-          $stderr.puts lines
         end
 
         def process_exited?

@@ -1,18 +1,18 @@
 module TestBench
   class CLI
     class Runner
-      attr_reader :options
+      attr_reader :confguration
       attr_reader :paths
 
-      def initialize paths, options
-        @options = options
+      def initialize paths, confguration
+        @confguration = confguration
         @paths = paths
       end
 
-      def self.call paths, options=nil
-        options ||= Options.build
+      def self.call paths
+        confguration ||= Configuration.instance
 
-        instance = new paths, options
+        instance = new paths, confguration
         instance.()
       end
 
@@ -21,7 +21,7 @@ module TestBench
           "Files: #{files * ', '}"
         end
 
-        set = ProcessSet.build files, options
+        set = ProcessSet.build files
         set.()
       end
 
@@ -41,8 +41,10 @@ module TestBench
       end
 
       def filter files
+        pattern = confguration.exclude_pattern
+
         files.reject do |file|
-          options.exclude_pattern.match file
+          pattern.match file
         end
       end
     end
