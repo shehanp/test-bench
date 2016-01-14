@@ -1,17 +1,19 @@
 module TestBench
   class Assert
     attr_reader :block
+    attr_reader :frame
     attr_reader :message
     attr_reader :subject
 
-    def initialize subject, assertions_module, message, block
+    def initialize subject, assertions_module, message, frame, block
       @assertions_module = assertions_module
       @block = block
+      @frame = frame
       @message = message
       @subject = subject
     end
 
-    def self.build subject, message_or_mod, &block
+    def self.build subject, message_or_mod, frame, &block
       block ||= -> do subject end
 
       if message_or_mod.is_a? Module
@@ -21,7 +23,7 @@ module TestBench
         assertions_module = nil
       end
 
-      new subject, assertions_module, message, block
+      new subject, assertions_module, message, frame, block
     end
 
     def self.call *arguments, &block
@@ -49,10 +51,8 @@ module TestBench
       log_assertion_message passed
 
       unless passed
-        stack_frame = caller_locations[1]
-
-        line = stack_frame.lineno
-        file = stack_frame.path
+        line = frame.lineno
+        file = frame.path
 
         TestBench.logger.error %{Assertion failure (Line: #{line}, File: #{file.inspect})}
       end
@@ -102,11 +102,13 @@ module TestBench
 
     module Methods
       def assert subject, message_or_module=nil, &block
-        Assert.(subject, message_or_module, &block)
+        frame = caller_locations[0]
+        Assert.(subject, message_or_module, frame, &block)
       end
 
       def refute subject, message_or_module=nil, &block
-        Refute.(subject, message_or_module, &block)
+        frame = caller_locations[0]
+        Refute.(subject, message_or_module, frame, &block)
       end
     end
 
