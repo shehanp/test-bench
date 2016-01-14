@@ -12,10 +12,10 @@ context 'Logging' do
     TestBench.logger.deindent
     TestBench.logger.step 'Some Other Context'
 
-    assert output.string == <<~TEXT
-    Some Context
-      Nested Context
-    Some Other Context
+    assert output.string == <<-TEXT
+Some Context
+  Nested Context
+Some Other Context
     TEXT
   end
 end
