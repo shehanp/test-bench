@@ -1,7 +1,5 @@
 require_relative './examples_init'
 
-TestBench.activate
-
 def logger
   @logger ||= ExtendedLogger::Logger.new nil
 end

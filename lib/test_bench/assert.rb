@@ -40,13 +40,7 @@ module TestBench
 
       subject.extend assertions_module if assertions_module
 
-      if block.arity == 0
-        return_value = subject.instance_exec &block
-      else
-        return_value = subject.instance_exec subject, &block
-      end
-
-      passed = passed? return_value
+      passed = run_block
 
       log_assertion_message passed
 
@@ -72,14 +66,6 @@ module TestBench
       end
     end
 
-    def passed? return_value
-      if return_value
-        true
-      else
-        false
-      end
-    end
-
     def resolve_assertions_module
       if subject.is_a? Module
         if subject.const_defined? :Assertions
@@ -88,6 +74,16 @@ module TestBench
       elsif subject.class.const_defined? :Assertions
         return subject.class.const_get :Assertions
       end
+    end
+
+    def run_block
+      if block.arity == 0
+        return_value = subject.instance_exec &block
+      else
+        return_value = subject.instance_exec subject, &block
+      end
+
+      if return_value then true else false end
     end
 
     def self.activate

@@ -54,8 +54,6 @@ module TestBench
               end
               lines.unshift "#{error.class}: #{error.message}"
 
-              lines.reverse! if Configuration.instance.reverse_backtraces?
-
               lines.each do |line|
                 TestBench.logger.error line
               end

@@ -5,7 +5,6 @@ module TestBench
     attr_reader :env
     attr_writer :exclude_pattern
     attr_writer :log_level
-    attr_accessor :reverse_backtraces
     attr_writer :verbosity
 
     def initialize env
@@ -58,12 +57,6 @@ module TestBench
 
     def log_level
       @log_level ||= 0
-    end
-
-    def reverse_backtraces?
-      return true if reverse_backtraces
-      value = env['TEST_BENCH_REVERSE_BACKTRACES'.freeze]
-      activated? value
     end
 
     FalseValues = %w(off n no 0).map &:freeze

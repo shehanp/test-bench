@@ -61,10 +61,6 @@ module TestBench
           confguration.decrease_verbosity
         end
 
-        parser.on '-R', '--reverse-backtraces', 'Reverse line ordering of backtraces' do
-          confguration.reverse_backtraces = true
-        end
-
         parser.on '-r', '--require LIBRARY', 'Requires a LIBRARY before test run' do |library|
           require library
         end
