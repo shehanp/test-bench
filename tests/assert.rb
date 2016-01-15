@@ -155,7 +155,7 @@ context 'Assert' do
           pass?
         end
 
-        assert log_output.string == %{Assertion passed (Target: object-with-other-assertions)\n}
+        assert log_output.string == %{Assertion passed (Subject: object-with-other-assertions)\n}
       end
     end
 

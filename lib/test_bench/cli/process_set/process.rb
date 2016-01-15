@@ -41,8 +41,6 @@ module TestBench
             TestBench.internal_logger.debug do
               "Wrote closing message (File: #{file.inspect})"
             end
-
-            TestBench.logger.pass ''
           end
         end
 

@@ -40,7 +40,8 @@ module TestBench
 
       subject.extend assertions_module if assertions_module
 
-      passed = run_block
+      output = run_block
+      passed = passed? output
 
       log_assertion_message passed
 
@@ -64,6 +65,10 @@ module TestBench
           "Assertion #{verb} (Message: #{message.inspect}, Subject: #{subject.inspect})"
         end
       end
+    end
+
+    def passed? output
+      if output then true else false end
     end
 
     def resolve_assertions_module

@@ -28,7 +28,7 @@ module TestBench
       end
     end
 
-    ColorScheme = 'DATA=6;?,ERROR=9;?,STEP=2;?,PASS=f;2,SKIP=f;3,FAIL=f;1,ANY=f;7'
+    ColorScheme = 'DATA=6;?,ERROR=9;?,STEP=2;?,PASS=f;2,SKIP=3;?,FAIL=f;1,ANY=f;7'
   end
 
   def self.logger

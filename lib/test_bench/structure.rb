@@ -5,97 +5,36 @@ module TestBench
     end
 
     def context message=nil, &block
-      indented = false
-
-      if message
-        TestBench.logger.step do
-          indented = true
-          message
-        end
+      unless block
+        TestBench.logger.skip message if message
+        return
       end
 
-      TestBench.logger.indent if indented
-
-      # If TestBench's logger is compromised during the execution, restore it.
-      # This is mainly useful for scripts that test TestBench itself.
-      old_logger = TestBench.logger
-
-      Structure.increase_nesting
+      Stack.instance.push message
 
       begin
         block.() if block
 
       ensure
-        TestBench.logger = old_logger
-        TestBench.logger.deindent if indented
-
-        Structure.decrease_nesting
-        if Structure.top_level? and Structure.errors.any?
-          exit 1
-        end
+        Stack.instance.pop
       end
     end
 
     def test message=nil, &block
       message ||= 'Test'
+
       if block
-        context message do
+        Stack.instance.push message
 
-          begin
-            block.()
+        begin
+          block.()
+          Stack.instance.pop
 
-          rescue => error
-            if error.is_a? Assert::Failure
-              TestBench.logger.fail "Test #{message.inspect} failed"
-            else
-              lines = error.backtrace_locations
-              lines.map! do |line|
-                "    from #{line}"
-              end
-              lines.unshift "#{error.class}: #{error.message}"
-
-              lines.each do |line|
-                TestBench.logger.error line
-              end
-
-              TestBench.logger.fail "Test #{message.inspect} errored out"
-            end
-
-            if Configuration.instance.fail_fast?
-              exit 1
-            elsif Structure.top_level?
-              raise error
-            else
-              Structure.errors << error
-            end
-          end
+        rescue => error
+          Stack.instance.error error
         end
       else
         context message
-      end
-    end
-
-    class << self
-      attr_writer :nesting
-
-      def decrease_nesting
-        self.nesting -= 1
-      end
-
-      def errors
-        @errors ||= []
-      end
-
-      def increase_nesting
-        self.nesting += 1
-      end
-
-      def nesting
-        @nesting ||= 0
-      end
-
-      def top_level?
-        nesting == 0
       end
     end
   end

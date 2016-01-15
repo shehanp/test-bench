@@ -4,7 +4,18 @@ def logger
   @logger ||= ExtendedLogger::Logger.new nil
 end
 
-test 'Test Outside Context'
+test 'Test Outside Context' do
+end
+
+context 'Some Context' do
+  context 'Nested Context' do
+    test 'Passing Test' do
+    end
+
+    test 'Other Passing Test' do
+    end
+  end
+end
 
 context 'Some Context' do
   logger.info 'Application log message'
