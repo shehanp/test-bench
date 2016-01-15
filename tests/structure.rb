@@ -32,6 +32,7 @@ Some Context
     Pending Test
     Test
       Assertion passed (Subject: true)
+
 TEXT
 
 assert log_output.string == expected_output
