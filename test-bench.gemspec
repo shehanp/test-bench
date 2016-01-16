@@ -25,5 +25,5 @@ describe/context/specify/it.
   s.files = Dir.glob 'lib/**/*'
   s.platform = Gem::Platform::RUBY
 
-  s.add_runtime_dependency 'extended_logger', '~> 0.5.0'
+  s.add_runtime_dependency 'extended_logger', '~> 0.5.3'
 end
