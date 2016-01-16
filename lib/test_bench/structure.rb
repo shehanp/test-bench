@@ -10,13 +10,14 @@ module TestBench
         return
       end
 
-      Stack.instance.push message
+      Stack.instance.push message, caller_locations[0]
 
       begin
         block.() if block
-
-      ensure
         Stack.instance.pop
+
+      rescue => error
+        Stack.instance.error error
       end
     end
 
@@ -24,7 +25,7 @@ module TestBench
       message ||= 'Test'
 
       if block
-        Stack.instance.push message
+        Stack.instance.push message, caller_locations[0]
 
         begin
           block.()

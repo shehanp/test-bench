@@ -23,7 +23,8 @@ module TestBench
       def error error
         frame = pop
 
-        LogError.(error, frame.message)
+        root_location = self.root_location || frame.caller_location
+        LogError.(error, frame.message, root_location)
 
         exit 1 if configuration.fail_fast?
         exit 1 if top_level?
@@ -48,10 +49,14 @@ module TestBench
         frame
       end
 
-      def push message=nil
-        frame = Frame.new message, logger
+      def push message, caller_location
+        frame = Frame.new message, logger, caller_location
         stack << frame
         frame.pushed
+      end
+
+      def root_location
+        stack[0] && stack[0].caller_location
       end
 
       def stack
@@ -62,7 +67,7 @@ module TestBench
         stack.empty?
       end
 
-      Frame = Struct.new :message, :logger do
+      Frame = Struct.new :message, :logger, :caller_location do
         def popped
           if message
             logger.deindent
