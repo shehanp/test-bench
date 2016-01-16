@@ -56,7 +56,7 @@ module TestBench
     end
 
     def log_level
-      @log_level ||= 0
+      @log_level ||= TestBench::Logging::Logger::ERROR
     end
 
     FalseValues = %w(off n no 0).map &:freeze
