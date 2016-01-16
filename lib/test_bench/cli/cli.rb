@@ -20,7 +20,6 @@ module TestBench
     def call
       parser.parse! argv
 
-      ExtendedLogger.verbosity = confguration.log_level
       TestBench.logger.level += confguration.log_level
 
       TestBench.internal_logger.debug do
