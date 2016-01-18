@@ -5,6 +5,7 @@ module TestBench
     attr_reader :env
     attr_writer :exclude_pattern
     attr_writer :log_level
+    attr_writer :spec_compatibility
     attr_writer :verbosity
 
     def initialize env
@@ -57,6 +58,14 @@ module TestBench
 
     def log_level
       @log_level ||= TestBench::Logging::Logger::ERROR
+    end
+
+    def spec_compatibility
+      @spec_compatibility ||=
+        begin
+          value = env['TEST_BENCH_SPEC_COMPATIBILITY'.freeze] || 'off'.freeze
+          TrueValues.include? value
+        end
     end
 
     FalseValues = %w(off n no 0).map &:freeze

@@ -2,6 +2,10 @@ module TestBench
   module Structure
     def self.activate
       Object.send :include, self
+
+      if Configuration.instance.spec_compatibility
+        Object.send :include, SpecCompatibility
+      end
     end
 
     def context message=nil, &block
@@ -36,6 +40,16 @@ module TestBench
         end
       else
         context message
+      end
+    end
+
+    module SpecCompatibility
+      def self.included cls
+        cls.instance_exec do
+          alias_method :describe, :context
+          alias_method :it, :test
+          alias_method :specify, :test
+        end
       end
     end
   end

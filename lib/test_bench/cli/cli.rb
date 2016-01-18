@@ -39,6 +39,10 @@ module TestBench
 
     def parser
       OptionParser.new do |parser|
+        parser.on '-c', '--spec-compatibility', 'Enable minimal compatibility with other spec frameworks' do
+          configuration.spec_compatibility = true
+        end
+
         parser.on '-f', '--fail-fast', 'Exit immediately after any test script fails' do
           confguration.fail_fast = true
         end
