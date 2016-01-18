@@ -1,31 +1,31 @@
 module TestBench
   class CLI
     attr_reader :argv
-    attr_reader :confguration
+    attr_reader :configuration
 
-    def initialize argv, confguration
+    def initialize argv, configuration
       @argv = argv
-      @confguration = confguration
+      @configuration = configuration
     end
 
     def self.call argv=nil
       argv ||= []
 
-      confguration = Configuration.instance
+      configuration = Configuration.instance
 
-      instance = new argv, confguration
+      instance = new argv, configuration
       instance.call
     end
 
     def call
       parser.parse! argv
 
-      TestBench.logger.level += confguration.log_level
+      TestBench.logger.level += configuration.log_level
 
       TestBench.internal_logger.debug do
         require 'json'
-        json = JSON.pretty_generate confguration.to_h
-        "Test bench confguration:\n#{json}"
+        json = JSON.pretty_generate configuration.to_h
+        "Test bench configuration:\n#{json}"
       end
 
       paths = argv
@@ -44,7 +44,7 @@ module TestBench
         end
 
         parser.on '-f', '--fail-fast', 'Exit immediately after any test script fails' do
-          confguration.fail_fast = true
+          configuration.fail_fast = true
         end
 
         parser.on '-h', '--help', 'Print this help message and exit successfully' do
@@ -57,11 +57,11 @@ module TestBench
         end
 
         parser.on '-n', '--child-count NUM', 'Maximum number of processes to run in parallel' do |number|
-          confguration.child_count = Integer(number)
+          configuration.child_count = Integer(number)
         end
 
         parser.on '-q', '--quiet', 'Decrease verbosity level' do
-          confguration.decrease_verbosity
+          configuration.decrease_verbosity
         end
 
         parser.on '-r', '--require LIBRARY', 'Requires a LIBRARY before test run' do |library|
@@ -69,7 +69,7 @@ module TestBench
         end
 
         parser.on '-v', '--verbose', 'Increase verbosity level' do
-          confguration.increase_verbosity
+          configuration.increase_verbosity
         end
 
         parser.on '-V', '--version', 'Print version and exit successfully' do
@@ -78,7 +78,7 @@ module TestBench
         end
 
         parser.on '-x', '--exclude PATTERN', 'Filter out files matching PATTERN' do |pattern|
-          confguration.exclude_pattern = Regexp.new pattern
+          configuration.exclude_pattern = Regexp.new pattern
         end
       end
     end
