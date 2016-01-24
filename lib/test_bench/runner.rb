@@ -33,12 +33,10 @@ module TestBench
 
     def expand_paths
       paths.flat_map do |path|
-        if path.end_with? '.rb'
-          path
-        else
-          glob = File.join path, '**/*.rb'
-          Dir[glob]
+        unless path.end_with? '.rb'
+          path = File.join path, '**/*.rb'
         end
+        Dir[path]
       end
     end
 
