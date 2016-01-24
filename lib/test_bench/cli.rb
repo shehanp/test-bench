@@ -34,7 +34,12 @@ module TestBench
 
       TestBench.activate
 
-      Runner.(paths) or exit 1
+      exclude_pattern = configuration.exclude_pattern
+      base_path = Pathname.new Dir.pwd
+
+      unless Runner.(paths, base_path: base_path, exclude_pattern: exclude_pattern)
+        exit 1
+      end
     end
 
     def parser

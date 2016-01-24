@@ -1,22 +1,22 @@
 module TestBench
   class Runner
+    attr_reader :base_path
     attr_reader :exclude_pattern
     attr_reader :paths
 
-    def initialize paths, exclude_pattern
+    def initialize paths, base_path, exclude_pattern
+      @base_path = base_path
       @exclude_pattern = exclude_pattern
       @paths = paths
     end
 
-    def self.call paths, exclude_pattern: nil
-      if exclude_pattern.nil?
-        configuration = Configuration.instance
-        exclude_pattern = configuration.exclude_pattern
-      end
+    def self.call paths, base_path: nil, exclude_pattern: nil
+      base_path ||= Pathname.new(caller[0]).dirname.expand_path
+      exclude_pattern ||= /^$/
 
       paths = Array(paths)
 
-      instance = new paths, exclude_pattern
+      instance = new paths, base_path, exclude_pattern
       instance.()
     end
 
@@ -33,10 +33,13 @@ module TestBench
 
     def expand_paths
       paths.flat_map do |path|
-        unless path.end_with? '.rb'
-          path = File.join path, '**/*.rb'
+        full_path = base_path.join path
+
+        unless full_path.extname == '.rb'
+          full_path = full_path.join '**/*.rb'
         end
-        Dir[path]
+
+        Dir[full_path]
       end
     end
 
