@@ -1,5 +1,5 @@
 module TestBench
-  class CLI
+  class Runner
     class ProcessSet
       attr_reader :child_count
       attr_reader :fail_fast

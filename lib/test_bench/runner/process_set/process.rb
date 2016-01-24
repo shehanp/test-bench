@@ -1,5 +1,5 @@
 module TestBench
-  class CLI
+  class Runner
     class ProcessSet
       class Process
         attr_reader :file
