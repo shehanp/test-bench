@@ -28,6 +28,11 @@ module TestBench
       set = ProcessSet.build files
 
       passed = set.()
+
+      TestBench.internal_logger.debug do
+        "Result: #{passed}"
+      end
+
       passed
     end
 

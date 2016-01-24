@@ -68,6 +68,16 @@ module TestBench
         end
     end
 
+    def to_h
+      {
+        child_count: child_count,
+        exclude_pattern: exclude_pattern,
+        fail_fast: fail_fast,
+        log_level: log_level,
+        spec_compatibility: spec_compatibility,
+      }
+    end
+
     FalseValues = %w(off n no 0).map &:freeze
     TrueValues = %w(on y yes 1).map &:freeze
   end
