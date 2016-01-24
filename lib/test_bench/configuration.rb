@@ -4,7 +4,7 @@ module TestBench
     attr_accessor :fail_fast
     attr_reader :env
     attr_writer :exclude_pattern
-    attr_writer :log_level
+    attr_writer :log_level_adjustment
     attr_writer :spec_compatibility
     attr_writer :verbosity
 
@@ -34,7 +34,7 @@ module TestBench
     end
 
     def decrease_verbosity
-      self.log_level += 1
+      self.log_level_adjustment += 1
     end
 
     def exclude_pattern
@@ -53,11 +53,11 @@ module TestBench
     end
 
     def increase_verbosity
-      self.log_level -= 1
+      self.log_level_adjustment -= 1
     end
 
-    def log_level
-      @log_level ||= TestBench::Logging::Logger::ERROR
+    def log_level_adjustment
+      @log_level_adjustment ||= 0
     end
 
     def spec_compatibility
@@ -73,7 +73,7 @@ module TestBench
         child_count: child_count,
         exclude_pattern: exclude_pattern,
         fail_fast: fail_fast,
-        log_level: log_level,
+        log_level_adjustment: log_level_adjustment,
         spec_compatibility: spec_compatibility,
       }
     end

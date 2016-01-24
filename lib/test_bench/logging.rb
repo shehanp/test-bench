@@ -10,6 +10,7 @@ module TestBench
         end
 
         logger = Logger.build device, color_scheme: color_scheme
+        logger.level = 'ERROR'
 
         self.logger = logger
       end

@@ -20,7 +20,7 @@ module TestBench
     def call
       parser.parse! argv
 
-      TestBench.logger.level += configuration.log_level
+      TestBench.logger.level += configuration.log_level_adjustment
 
       TestBench.internal_logger.debug do
         require 'json'
