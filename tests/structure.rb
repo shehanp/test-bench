@@ -36,3 +36,4 @@ Some Context
 TEXT
 
 assert log_output.string == expected_output
+puts log_output.string

@@ -30,12 +30,12 @@ context 'Some Context' do
 
     test 'Failing Test' do
       logger.info 'Application log message'
-      refute true
+      assert false
     end
 
     test 'Second Failing Test' do
       logger.info 'Application log message'
-      refute true
+      assert false
     end
 
     test 'Erroring Test' do

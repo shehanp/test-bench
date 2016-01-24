@@ -49,21 +49,6 @@ context 'Assert' do
         assert error
       end
     end
-
-    test 'Refute' do
-      log_output = StringIO.new
-      TestBench::Logging.configure log_output
-
-      refute nil
-
-      begin
-        line = __LINE__; refute 'truthy'
-      rescue TestBench::Assert::Failure => error
-      end
-
-      assert log_output.string == %{Assertion passed (Target: nil)\nAssertion failed (Target: "truthy")\nAssertion failure (Line: #{line}, File: #{__FILE__.inspect})\n}
-      assert error
-    end
   end
 
   context 'Block Form Assertion' do

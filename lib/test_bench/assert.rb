@@ -41,7 +41,7 @@ module TestBench
       subject.extend assertions_module if assertions_module
 
       output = run_block
-      passed = passed? output
+      passed = if output then true else false end
 
       log_assertion_message passed
 
@@ -65,10 +65,6 @@ module TestBench
           "Assertion #{verb} (Message: #{message.inspect}, Subject: #{subject.inspect})"
         end
       end
-    end
-
-    def passed? output
-      if output then true else false end
     end
 
     def resolve_assertions_module
@@ -95,21 +91,10 @@ module TestBench
       Object.send :include, Methods
     end
 
-    class Refute < Assert
-      def passed? return_value
-        not return_value
-      end
-    end
-
     module Methods
       def assert subject, message_or_module=nil, &block
         frame = caller_locations[0]
         Assert.(subject, message_or_module, frame, &block)
-      end
-
-      def refute subject, message_or_module=nil, &block
-        frame = caller_locations[0]
-        Refute.(subject, message_or_module, frame, &block)
       end
     end
 
