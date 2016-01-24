@@ -52,20 +52,22 @@ module TestBench
           exit 0
         end
 
-        parser.on '-I', '--include DIR', 'Adds DIR to the ruby load path before test run' do |dir|
-          $LOAD_PATH.unshift dir unless $LOAD_PATH.include? dir
-        end
-
         parser.on '-n', '--child-count NUM', 'Maximum number of processes to run in parallel' do |number|
           configuration.child_count = Integer(number)
         end
 
-        parser.on '-q', '--quiet', 'Decrease verbosity level' do
-          configuration.decrease_verbosity
+        parser.on '-p', '--preload FILE', 'Preload FILE before loading test scripts' do |file|
+          file = File.expand_path file
+
+          current_path = Pathname.new __dir__
+          file_path = Pathname.new file
+
+          relative_path = file_path.relative_path_from current_path
+          require_relative relative_path
         end
 
-        parser.on '-r', '--require LIBRARY', 'Requires a LIBRARY before test run' do |library|
-          require library
+        parser.on '-q', '--quiet', 'Decrease verbosity level' do
+          configuration.decrease_verbosity
         end
 
         parser.on '-v', '--verbose', 'Increase verbosity level' do

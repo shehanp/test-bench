@@ -1,6 +1,6 @@
 require 'extended_logger'
-require 'fiber'
 require 'optparse'
+require 'pathname'
 
 require 'test_bench/assert'
 require 'test_bench/configuration'
