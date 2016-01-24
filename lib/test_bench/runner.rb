@@ -27,13 +27,18 @@ module TestBench
 
       set = ProcessSet.build files
 
-      passed = set.()
+      set.()
 
-      TestBench.internal_logger.debug do
-        "Result: #{passed}"
+      if set.passed?
+        level = :info
+        message = 'All tests passed'
+      else
+        level = :error
+        message = 'One or more test(s) failed'
       end
+      TestBench.logger.public_send level, message
 
-      passed
+      set.passed?
     end
 
     def expand_paths
