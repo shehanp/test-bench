@@ -56,7 +56,7 @@ module TestBench
     end
 
     def log_assertion_message passed
-      TestBench.logger.info do
+      TestBench.logger.debug do
         verb = if passed then verb = 'passed' else verb = 'failed' end
 
         if message.nil? or message.empty?

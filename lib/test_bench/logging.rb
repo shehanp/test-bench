@@ -10,7 +10,7 @@ module TestBench
         end
 
         logger = Logger.build device, color_scheme: color_scheme
-        logger.level = 'ERROR'
+        logger.level = 'INFO'
 
         self.logger = logger
       end
@@ -29,7 +29,7 @@ module TestBench
       end
     end
 
-    ColorScheme = 'DATA=6;?,ERROR=9;?,STEP=2;?,PASS=f;2,SKIP=3;?,FAIL=f;1,ANY=f;7'
+    ColorScheme = 'DEBUG=6;?,ERROR=9;?,STEP=2;?,PASS=f;2,SKIP=3;?,FAIL=f;1,ANY=f;7'
   end
 
   def self.logger

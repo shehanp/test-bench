@@ -29,14 +29,13 @@ module TestBench
 
       set.()
 
-      if set.passed?
-        level = :info
-        message = 'All tests passed'
-      else
-        level = :error
-        message = 'One or more test(s) failed'
+      TestBench.logger.info do
+        "Finished running tests. Files: #{set.files * ', '}"
       end
-      TestBench.logger.public_send level, message
+
+      unless set.passed?
+        TestBench.logger.error 'One or more test(s) failed'
+      end
 
       set.passed?
     end

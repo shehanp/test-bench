@@ -1,7 +1,7 @@
 module TestBench
   module Logging
     class Logger < ExtendedLogger
-      self.levels = %w(DATA INFO ERROR STEP SKIP FAIL)
+      self.levels = %w(DEBUG INFO ERROR STEP SKIP FAIL)
 
       attr_writer :indenter
 

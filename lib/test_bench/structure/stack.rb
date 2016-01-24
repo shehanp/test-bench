@@ -41,9 +41,8 @@ module TestBench
         frame.popped
 
         if top_level?
-          exit 1 if errors.any?
-
           logger.step ''
+          exit 1 if errors.any?
         end
 
         frame

@@ -32,6 +32,7 @@ module TestBench
             exit 0
 
           ensure
+
             TestBench.internal_logger.debug do
               "Writing closing message (File: #{file.inspect})"
             end
