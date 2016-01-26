@@ -29,8 +29,14 @@ module TestBench
 
       set.()
 
-      TestBench.logger.info do
-        "Finished running tests. Files: #{set.files * ', '}"
+      TestBench.logger.debug do
+        "Finished running tests. The following test scripts were executed:"
+      end
+
+      set.files.each do |file|
+        TestBench.logger.debug do
+          "\t#{file}"
+        end
       end
 
       unless set.passed?
