@@ -1,5 +1,7 @@
 module TestBench
   module Logging
+    Levels = %w(DEBUG INFO ERROR STEP SKIP FAIL)
+
     class << self
       attr_writer :logger
       attr_writer :internal_logger
