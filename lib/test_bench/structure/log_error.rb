@@ -37,7 +37,7 @@ module TestBench
             TestBench.logger.error line
           end
 
-          TestBench.logger.fail "Test #{message.inspect} errored"
+          TestBench.logger.fail "Test #{message.inspect} failed (an error was raised)"
         end
       end
     end
