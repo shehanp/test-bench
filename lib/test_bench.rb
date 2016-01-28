@@ -3,7 +3,7 @@ require 'optparse'
 require 'pathname'
 
 require 'test_bench/assert'
-require 'test_bench/assert/catch_error'
+require 'test_bench/assert/error'
 require 'test_bench/configuration'
 require 'test_bench/logging'
 require 'test_bench/logging/logger'

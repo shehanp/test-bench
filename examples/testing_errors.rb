@@ -12,13 +12,13 @@ class Foo
     include TestBench::Assert::Error
 
     def raises_any_error? &block
-      catch_error do
+      error? do
         block.()
       end
     end
 
     def raises_specific_error? error_class, &block
-      catch_error error_class do
+      error? error_class do
         block.()
       end
     end
@@ -28,14 +28,14 @@ end
 foo = Foo.new
 
 assert foo do
-  catch_error do
-    fail
+  error? do
+    raise_an_error
   end
 end
 
 assert foo do
-  catch_error Foo::CustomError do
-    raise Foo::CustomError
+  error? Foo::CustomError do
+    raise_an_error
   end
 end
 

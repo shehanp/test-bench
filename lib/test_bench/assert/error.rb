@@ -1,14 +1,14 @@
 module TestBench
   class Assert
     module Error
-      def catch_error error_class=nil, &block
+      def error? error_class=nil, &block
         error_class ||= StandardError
 
         block.()
-        false
+        return nil
 
-      rescue error_class
-        return true
+      rescue error_class => error
+        return error
       end
     end
   end
