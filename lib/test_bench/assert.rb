@@ -68,7 +68,11 @@ module TestBench
     end
 
     def resolve_assertions_module
-      if subject.is_a? Module
+      if subject.is_a? Class
+        if subject.singleton_class.const_defined? :Assertions
+          return subject.singleton_class.const_get :Assertions
+        end
+      elsif subject.is_a? Module
         if subject.const_defined? :Assertions
           return subject.const_get :Assertions
         end

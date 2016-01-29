@@ -144,6 +144,32 @@ context 'Assert' do
       end
     end
 
+    context 'Class' do
+      class ClassWithAssertions
+        class << self
+          module Assertions
+            def fail?
+              true
+            end
+
+            def pass?
+              true
+            end
+
+            def inspect
+              'class-with-assertions'
+            end
+          end
+        end
+      end
+
+      test 'Pass' do
+        assert ClassWithAssertions do
+          pass?
+        end
+      end
+    end
+
     context 'Module' do
       module ModuleWithAssertions
         module Assertions
