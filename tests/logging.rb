@@ -13,9 +13,9 @@ context 'Logging' do
     TestBench.logger.step 'Some Other Context'
 
     assert output.string == <<-TEXT
-Some Context
-  Nested Context
-Some Other Context
+    \e[0;32mSome Context\e[0m
+      \e[0;32mNested Context\e[0m
+    \e[0;32mSome Other Context\e[0m
     TEXT
   end
 end

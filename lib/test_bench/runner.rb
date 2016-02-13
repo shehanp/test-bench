@@ -29,12 +29,12 @@ module TestBench
 
       set.()
 
-      TestBench.logger.debug do
+      TestBench.logger.detail do
         "Finished running tests. The following test scripts were executed:"
       end
 
       set.files.each do |file|
-        TestBench.logger.debug do
+        TestBench.logger.detail do
           "\t#{file}"
         end
       end

@@ -20,8 +20,6 @@ module TestBench
     def call
       parser.parse! argv
 
-      TestBench.logger.level += configuration.log_level_adjustment
-
       TestBench.internal_logger.debug do
         require 'json'
         json = JSON.pretty_generate configuration.to_h

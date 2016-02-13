@@ -1,70 +1,39 @@
 module TestBench
   module Logging
-    class Logger < ExtendedLogger
-      self.levels = Levels
+    color_scheme = ExtendedLogger::ColorScheme.build(
+      :fail => { :fg => :white, :bg => :red },
+      # :summary
+      :error => :red,
+      :skip => :brown,
+      :step => :green,
+      # :info
+      :detail => :cyan,
+    )
 
-      attr_writer :indenter
+    levels = ExtendedLogger::Level::Set.build(
+      %i(detail info step skip error summary fail),
+      :default => :info,
+    )
 
-      def self.build *;
-        indenter = Indenter.new
+    format = -> message do
+      Indent.instance.(message)
+    end
 
-        instance = super
-        instance.indenter = indenter
-        instance
+    logger_class = ExtendedLogger.define(
+      levels,
+      :color_scheme => color_scheme,
+      :format => format,
+    )
+
+    Logger = logger_class
+
+    class Logger
+      def indent
+        Indent.instance.increase_indentation
       end
 
       def deindent
-        indenter.decrease_indentation
-      end
-
-      def formatter
-        @formatter ||= ExtendedLogger::Formatter.new indenter
-      end
-
-      def indent
-        indenter.increase_indentation
-      end
-
-      def indentation
-        indenter.indentation
-      end
-
-      def indentation= value
-        indenter.indentation = value
-      end
-
-      def indenter
-        @indenter ||= Indenter.new
-      end
-
-      class Indenter
-        attr_writer :indentation
-
-        def call severity, datetime, progname, message
-          if message == '(empty log message)'.freeze
-            indent "\n"
-          else
-            indent "#{message}\n"
-          end
-        end
-
-        def decrease_indentation
-          self.indentation -= 1
-        end
-
-        def increase_indentation
-          self.indentation += 1
-        end
-
-        def indentation
-          @indentation ||= 0
-        end
-
-        def indent text
-          output = '  '.freeze * indentation
-          output << text
-          output
-        end
+        Indent.instance.decrease_indentation
       end
     end
   end

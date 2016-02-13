@@ -1,48 +1,24 @@
 module TestBench
   module Logging
-    Levels = %w(DEBUG INFO ERROR STEP SKIP FAIL)
-
-    class << self
-      attr_writer :logger
-      attr_writer :internal_logger
-
-      def configure device, color_scheme: nil
-        if device.tty?
-          color_scheme ||= ColorScheme
-        end
-
-        logger = Logger.build device, color_scheme: color_scheme
-        logger.level = 'INFO'
-
-        self.logger = logger
-      end
-
-      def logger
-        @logger ||= configure $stdout
-      end
-
-      def internal_logger
-        @internal_logger ||=
-          if ENV['TEST_BENCH_INTERNAL_LOGGER'] == 'on'
-            ExtendedLogger::Logger.new $stdout
-          else
-            ::Logger.new nil
-          end
-      end
+    def self.configure device
+      logger = Logger.build device
+      TestBench.logger = logger
     end
 
-    ColorScheme = 'DEBUG=6;?,ERROR=9;?,STEP=2;?,PASS=f;2,SKIP=3;?,FAIL=f;1,ANY=f;7'
+    def self.get receiver
+      registry.get receiver
+    end
+
+    def self.registry
+      @registry ||= ExtendedLogger::Registry.build Logger, :device => $stdout
+    end
   end
 
   def self.logger
-    Logging.logger
+    @logger ||= Logging.get self
   end
 
   def self.logger= logger
-    Logging.logger = logger
-  end
-
-  def self.internal_logger
-    Logging.internal_logger
+    @logger = logger
   end
 end

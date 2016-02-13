@@ -1,7 +1,7 @@
 require_relative './examples_init'
 
 def logger
-  @logger ||= ExtendedLogger::Logger.new nil
+  @logger ||= ExtendedLogger::Logger.build
 end
 
 test 'Test Outside Context' do
