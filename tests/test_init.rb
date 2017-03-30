@@ -7,3 +7,5 @@ end
 
 require 'ostruct'
 require 'stringio'
+
+require 'test_bench/run/subscriber/example'
