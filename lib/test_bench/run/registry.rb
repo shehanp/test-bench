@@ -1,5 +1,5 @@
 module TestBench
-  class Settings
+  class Run
     class Registry
       def self.instance
         @instance ||= new
@@ -19,7 +19,7 @@ module TestBench
 
       def table
         @table ||= Hash.new do |hash, key|
-          hash[key] = Settings.new
+          hash[key] = Run.new
         end
       end
     end

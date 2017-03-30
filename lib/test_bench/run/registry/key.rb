@@ -1,5 +1,5 @@
 module TestBench
-  class Settings
+  class Run
     class Registry
       module Key
         def self.call object
