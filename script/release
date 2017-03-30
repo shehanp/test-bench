@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -eu
+
+export GEM_VERSION=$1
+export GEM_NAME=test_bench
+
+echo
+echo "Running tests"
+echo "= = ="
+
+bin/bench
+
+echo
+echo "Tagging release"
+echo "= = ="
+git tag -a "v$GEM_VERSION" -m "Version $GEM_VERSION" &&
+  git push github "v$GEM_VERSION"
+
+echo
+echo "Building version for rubygems.org"
+echo "= = ="
+gem build --norc gemspec
+
+gem push $GEM_NAME-$GEM_VERSION.gem || true
+
+echo
+echo "Cleaning up"
+echo "= = ="
+
+rm -vf *.gem

@@ -1,0 +1,61 @@
+Basic Usage
+===========
+
+=== Inline Usage
+
+Test Bench can be used for testing projects as small as a code snippet. Once Test Bench is activated via  +require "test_bench/activate"+ +assert+, +refute+, +test+, +context+ and +comment+  are available. Here, the Fibonacci number sequence is implemented and tested in a single file:
+
+[source,ruby]
+----
+require 'test_bench/activate'
+
+def fib(n)
+  if n == 2
+    [1, 1]
+  else
+    result = fib(n - 1)
+    result << result[-2] + result[-1]
+    result
+  end
+end
+
+assert fib(3) == [1, 1, 2]
+assert fib(4) == [1, 1, 2, 3]
+----
+
+If you only +require "test_bench"+ without the +activate+ bit the +test_bench+ library will be loaded, but the global context (e.g. +main+) will not have +assert+, +refute+, +test+, +context+ and +comment+ monkeypatched onto it.
+
+=== Using Test Bench for a larger project
+
+Larger projects can be set up to use Test Bench easily. Simply define a test initialization file (often called +test_helper.rb+ in ruby projects) and load both Test Bench and your project's code. For instance, suppose you are testing a ruby gem named +my_project+, whose code can be loaded by requiring +lib/my_project.rb+:
+
+[source,ruby]
+----
+require 'test_bench/activate'
+
+# Add lib/ to the $LOAD_PATH
+lib_dir = File.expand_path '../lib', __dir__
+$LOAD_PATH.unshift lib_dir unless $LOAD_PATH.include? lib_dir
+
+# Require the gem
+require 'my_project'
+----
+
+That test initializer can then be required by test files:
+
+[source,ruby]
+----
+require_relative './test_helper'
+
+context "My context" do
+  test "Some test" do
+    assert true
+  end
+end
+----
+
+=== Using the +bench+ binary
+
+Test Bench also ships with an executable, +bench+. You can view its options by invoking +bench -h+. If you've placed your test files under +tests+, then +bench+ by itself will run all your tests for you. Otherwise, you can pass the directory that contains your tests, e.g. +bench spec/+ or +bench test/+.
+
+**Next**: link:Assertions.adoc[Assertions]

@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+Dir['tests/**/*.rb'].each do |rb_file|
+  next if rb_file.end_with? '_init.rb'
+
+  puts "Running #{rb_file}"
+  load rb_file
+  puts
+end
