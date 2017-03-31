@@ -30,6 +30,22 @@ module TestBench
     end
     attr_writer :verbose
 
+    def set receiver
+      invalid_settings = receiver.settings - public_methods(false)
+
+      if invalid_settings.any?
+        raise InvalidSettingError, "Cannot apply unknown settings: #{invalid_settings.map(&:inspect) * ', '}"
+      end
+
+      receiver.settings.each do |attribute|
+        value = __send__ attribute
+
+        setter = "#{attribute}="
+
+        receiver.public_send setter, value
+      end
+    end
+
     def nil_coalesce ivar, value
       unless instance_variable_defined? ivar
         instance_variable_set ivar, value
@@ -37,5 +53,7 @@ module TestBench
 
       instance_variable_get ivar
     end
+
+    InvalidSettingError = Class.new StandardError
   end
 end

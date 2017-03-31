@@ -1,4 +1,5 @@
 require 'observer'
+require 'set'
 
 require 'terminal_colors'
 
@@ -15,5 +16,6 @@ require 'test_bench/run/registry/key'
 require 'test_bench/settings'
 require 'test_bench/settings/defaults'
 require 'test_bench/settings/environment/set'
+require 'test_bench/settings/macro'
 
 require 'test_bench/test_bench'

@@ -1,7 +1,9 @@
 module TestBench
   class Run
-    class Subscriber
-      class Example < Subscriber
+    module Subscriber
+      class Example
+        include Subscriber
+
         def recorded activity, data
           entries << [activity, data]
         end
