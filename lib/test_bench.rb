@@ -9,9 +9,10 @@ require 'test_bench/assert/assertions_module/proc'
 require 'test_bench/assert/refute'
 
 require 'test_bench/run'
-require 'test_bench/run/subscriber'
+require 'test_bench/run/event'
 require 'test_bench/run/registry'
 require 'test_bench/run/registry/key'
+require 'test_bench/run/subscriber'
 
 require 'test_bench/settings'
 require 'test_bench/settings/defaults'

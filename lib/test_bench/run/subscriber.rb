@@ -3,20 +3,19 @@ module TestBench
     module Subscriber
       def self.included cls
         cls.class_exec do
-          include Settings::Macro
+          extend Settings::Macro
         end
       end
 
-      # FIXME - this is our plugin system, so each subscriber needs Settings!
-      def recorded _, _
+      def handle event
       end
 
       def settings
         self.class.settings
       end
 
-      def update activity, data
-        recorded activity, data
+      def update event
+        handle event
       end
     end
   end

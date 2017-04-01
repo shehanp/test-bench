@@ -4,23 +4,17 @@ module TestBench
       class Example
         include Subscriber
 
-        def recorded activity, data
-          entries << [activity, data]
+        def handle event
+          events << event
         end
 
-        def entries
-          @entries ||= []
+        def events
+          @events ||= []
         end
 
-        def received? activity, data=nil
-          entries.any? do |a, d|
-            if a != activity
-              false
-            elsif data.nil?
-              true
-            else
-              d == data
-            end
+        def received? event
+          events.any? do |e|
+            e == event
           end
         end
       end

@@ -2,11 +2,20 @@ module TestBench
   class Run
     include Observable
 
-    def record activity, data
+    def settings
+      @settings ||= Settings.new
+    end
+    attr_writer :settings
+
+    def record event
       changed
-      notify_observers activity, data
+      notify_observers event
     end
 
-    alias_method :add_subscriber, :add_observer
+    def add_subscriber subscriber
+      settings.set subscriber
+
+      add_observer subscriber
+    end
   end
 end
