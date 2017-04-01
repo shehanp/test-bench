@@ -19,10 +19,15 @@ module TestBench
         Skipped = Struct.new :prose
       end
 
-      Started = Object.new
-      Finished = Object.new
+      module Assertion
+        Asserted = Class.new
+        Passed = Class.new
+        Failed = Class.new
+      end
 
-      Asserted = Object.new
+      Started = Class.new
+      Finished = Class.new
+
       Commented = Struct.new :prose
       ErrorRaised = Struct.new :error
     end

@@ -5,6 +5,10 @@ module TestBench
         @instance ||= new
       end
 
+      def self.get receiver
+        instance.get receiver
+      end
+
       def get receiver
         key = Key.(receiver)
 

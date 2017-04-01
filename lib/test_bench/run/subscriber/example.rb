@@ -14,7 +14,7 @@ module TestBench
 
         def received? event
           events.any? do |e|
-            e == event
+            e == event || event === e
           end
         end
       end
