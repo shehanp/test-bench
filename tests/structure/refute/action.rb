@@ -7,9 +7,7 @@ context "Structure" do
 
       assertions_module = Module.new
 
-      structure = TestBench::Structure::Example.new
-
-      subscriber = structure.get_subscriber
+      structure = TestBench::Structure::Example.build
 
       executed = false
 

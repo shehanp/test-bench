@@ -1,14 +1,13 @@
 module TestBench
   module Structure
     module Assert
-      def self.call assert_class, binding, subject, assertions_module=nil, &action
+      def self.call assert_class, run, subject, assertions_module=nil, &action
         passed = assert_class.(subject, assertions_module, &action)
 
-        run = Run::Registry.get binding
-        run.record Run::Event::Assertion::Asserted.new
+        run.asserted
 
         unless passed
-          run.record Run::Event::Assertion::Failed.new
+          run.assertion_failed
 
           backtrace_locations = caller_locations
           backtrace_locations.shift
@@ -16,7 +15,7 @@ module TestBench
           raise TestBench::Assert::Failed.new(backtrace_locations)
         end
 
-        run.record Run::Event::Assertion::Passed.new
+        run.assertion_passed
       end
     end
   end

@@ -3,11 +3,9 @@ require_relative '../../test_init'
 context "Structure" do
   context "Refute" do
     context "Failed" do
-      structure = TestBench::Structure::Example.new
+      structure = TestBench::Structure::Example.build
 
       context do
-        subscriber = structure.get_subscriber
-
         begin
           structure.instance_exec do
             refute true
@@ -16,15 +14,15 @@ context "Structure" do
         end
 
         test "Asserted event is published" do
-          assert subscriber.received?(TestBench::Run::Event::Assertion::Asserted)
+          assert structure.published?(TestBench::Run::Event::Assertion::Asserted)
         end
 
         test "Assertion passed event is not published" do
-          refute subscriber.received?(TestBench::Run::Event::Assertion::Passed)
+          refute structure.published?(TestBench::Run::Event::Assertion::Passed)
         end
 
         test "Assertion failed event is published" do
-          assert subscriber.received?(TestBench::Run::Event::Assertion::Failed)
+          assert structure.published?(TestBench::Run::Event::Assertion::Failed)
         end
       end
 

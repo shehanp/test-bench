@@ -3,13 +3,25 @@ module TestBench
     class Example
       include Structure
 
-      def get_subscriber
-        subscriber = TestBench::Run::Subscriber::Example.new
+      attr_reader :subscriber
 
-        run = Run::Registry.get self
+      def initialize subscriber
+        @subscriber = subscriber
+      end
+
+      def self.build
+        run = Run.new
+
+        subscriber = Run::Subscriber::Example.new
         run.add_subscriber subscriber
 
-        subscriber
+        instance = new subscriber
+        Run::Registry.put run, instance
+        instance
+      end
+
+      def published? event
+        subscriber.received? event
       end
     end
   end

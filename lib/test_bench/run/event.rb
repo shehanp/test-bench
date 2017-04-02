@@ -12,10 +12,10 @@ module TestBench
       end
 
       module Test
-        Entered = Struct.new :prose
-        Exited = Struct.new :prose
+        Started = Struct.new :prose
+        Finished = Struct.new :prose
         Passed = Struct.new :prose
-        Failed = Struct.new :prose
+        Failed = Struct.new :prose, :error
         Skipped = Struct.new :prose
       end
 

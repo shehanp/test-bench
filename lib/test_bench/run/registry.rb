@@ -9,16 +9,20 @@ module TestBench
         instance.get receiver
       end
 
+      def self.put run, receiver
+        instance.put run, receiver
+      end
+
       def get receiver
         key = Key.(receiver)
 
         table[key]
       end
 
-      def put settings, receiver
+      def put run, receiver
         key = Key.(receiver)
 
-        table[key] = settings
+        table[key] = run
       end
 
       def table
