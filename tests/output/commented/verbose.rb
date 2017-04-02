@@ -1,12 +1,11 @@
 require_relative '../../test_init'
 
 context "Output" do
-  context "Comment" do
-    context "Color" do
+  context "Commented" do
+    context "Verbose" do
       event = TestBench::Run::Event::Commented.new 'Some comment'
 
       output = TestBench::Output.new
-      output.color = true
 
       output.output_level = :verbose
 
@@ -14,10 +13,8 @@ context "Output" do
 
       output.handle event
 
-      test "White" do
-        control_string = "#{TerminalColors::Apply.('Some comment', fg: :white)}\n"
-
-        assert output_device.string == control_string
+      test "Comment is written" do
+        assert output_device.string == "Some comment\n"
       end
     end
   end
