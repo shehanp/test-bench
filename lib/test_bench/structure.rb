@@ -13,20 +13,21 @@ module TestBench
     end
 
     def context prose=nil, &block
+      unless prose.nil? || String === prose
+        raise TypeError, "Prose must be a string"
+      end
+
       run = Run::Registry.get binding
 
       run.context_entered prose
 
-      unless block.nil?
-        begin
-          block.()
-        rescue => error
-          run.error_raised error
-        end
+      begin
+        block.() unless block.nil?
+      rescue => error
+        run.error_raised error
+      ensure
+        run.context_exited prose
       end
-
-    ensure
-      run.context_exited prose
     end
 
     def refute subject, assertions_module=nil, &action
@@ -36,6 +37,10 @@ module TestBench
     end
 
     def test prose=nil, &block
+      unless prose.nil? || String === prose
+        raise TypeError, "Prose must be a string"
+      end
+
       run = Run::Registry.get binding
 
       run.test_started prose
