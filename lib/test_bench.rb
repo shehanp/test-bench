@@ -22,6 +22,5 @@ require 'test_bench/settings/macro'
 
 require 'test_bench/structure'
 require 'test_bench/structure/assert'
-require 'test_bench/structure/example'
 
 require 'test_bench/test_bench'
