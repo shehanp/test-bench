@@ -7,22 +7,42 @@ module TestBench
 
           prepend Configure
 
+          setting :color
           setting :output_level
-          def output_level
-            @output_level ||= :normal
-          end
         end
       end
+
+      def indentation
+        @indentation ||= 0
+      end
+      attr_writer :indentation
 
       def output_device
         @output_device ||= StringIO.new
       end
       attr_writer :output_device
 
-      def puts text
-        unless output_level == :quiet
-          write text
-          write $/
+      def puts text, fg: nil, bg: nil
+        if output_level == :quiet
+          false
+        else
+          output = String.new
+
+          indentation.times do
+            output << '  '
+          end
+
+          if color
+            text = TerminalColors::Apply.(text, fg: fg, bg: bg)
+          end
+
+          output << text
+
+          output << $/
+
+          write output
+
+          true
         end
       end
 
@@ -30,9 +50,12 @@ module TestBench
         output_device.write text
       end
 
-      def verbose text
+      def verbose text, fg: nil, bg: nil
         if output_level == :verbose
-          puts text
+          puts text, fg: fg, bg: bg
+          true
+        else
+          false
         end
       end
 
