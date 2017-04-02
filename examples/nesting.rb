@@ -14,6 +14,10 @@ context "Example" do
             comment "Some comment"
           end
 
+          test "Failing test" do
+            refute true
+          end
+
           test "Skipped test"
         end
       end

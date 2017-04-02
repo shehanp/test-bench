@@ -3,8 +3,6 @@ module TestBench
     module Output
       def self.included cls
         cls.class_exec do
-          include Extension
-
           prepend Configure
 
           setting :color
