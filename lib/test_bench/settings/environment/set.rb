@@ -37,6 +37,7 @@ module TestBench
           set :exclude_pattern, env['TEST_BENCH_EXCLUDE_PATTERN']
           set :logger, boolean('TEST_BENCH_LOGGER')
           set :reverse_backtraces, boolean('TEST_BENCH_REVERSE_BACKTRACES')
+          set :silent, boolean('TEST_BENCH_SILENT')
           set :verbose, boolean('TEST_BENCH_VERBOSE')
         end
 

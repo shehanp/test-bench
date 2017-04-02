@@ -31,6 +31,17 @@ module TestBench
     end
     attr_writer :logger
 
+    def output_level
+      return :silent if silent
+
+      verbose ? :verbose : :normal
+    end
+
+    def silent
+      nil_coalesce :@silent, Defaults.silent
+    end
+    attr_writer :silent
+
     def reverse_backtraces
       nil_coalesce :@reverse_backtraces, Defaults.reverse_backtraces
     end

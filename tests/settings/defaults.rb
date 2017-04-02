@@ -40,6 +40,12 @@ context "Settings" do
       end
     end
 
+    context "Silent" do
+      test "False" do
+        assert settings.silent == false
+      end
+    end
+
     context "Verbose" do
       test "False" do
         assert settings.verbose == false

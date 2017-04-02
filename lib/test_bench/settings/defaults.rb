@@ -25,6 +25,10 @@ module TestBench
         false
       end
 
+      def self.silent
+        false
+      end
+
       def self.verbose
         false
       end
