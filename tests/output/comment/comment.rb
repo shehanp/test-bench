@@ -6,14 +6,12 @@ context "Output" do
 
     output = TestBench::Output.new
 
-    output.output_level = :verbose
-
     output.output_device = output_device = StringIO.new
 
     output.handle event
 
-    test "Comment is written" do
-      assert output_device.string == "Some comment\n"
+    test "Nothing is written" do
+      assert output_device.string == ''
     end
   end
 end

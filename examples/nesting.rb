@@ -8,14 +8,22 @@ context "Example" do
 
         context do
           test "Some test" do
+            assert true
+            assert true
+
             comment "Some comment"
+          end
+
+          test "Skipped test" do
           end
         end
       end
     end
 
     context "Other Inner Context" do
-      test "Other test"
+      test "Other test" do
+        assert true
+      end
     end
   end
 end

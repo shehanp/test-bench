@@ -37,3 +37,4 @@ require 'test_bench/test_bench'
 
 # Output & bundled extensions
 require 'test_bench/output'
+require 'test_bench/output/defaults'

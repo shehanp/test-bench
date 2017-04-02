@@ -19,5 +19,13 @@ module TestBench
     handle Context::Exited do |event|
       decrease_indentation unless output_level == :quiet
     end
+
+    handle Test::Started do |event|
+      text = event.prose || Defaults.test_prose
+
+      if verbose text, fg: :black, bold: true
+        increase_indentation
+      end
+    end
   end
 end
