@@ -2,8 +2,8 @@ require_relative '../../../test_init'
 
 context "Output" do
   context "Test" do
-    context "Started" do
-      event = TestBench::Run::Event::Test::Started.new 'Some test'
+    context "Finished" do
+      event = TestBench::Run::Event::Test::Finished.new 'Some test'
 
       output = TestBench::Output.new
 

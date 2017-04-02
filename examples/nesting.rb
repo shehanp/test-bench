@@ -14,8 +14,7 @@ context "Example" do
             comment "Some comment"
           end
 
-          test "Skipped test" do
-          end
+          test "Skipped test"
         end
       end
     end
@@ -26,4 +25,7 @@ context "Example" do
       end
     end
   end
+
+  context "Other Outer Context"
+  context "Other Other Context"
 end

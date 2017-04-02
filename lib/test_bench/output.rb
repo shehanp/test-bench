@@ -27,5 +27,9 @@ module TestBench
         increase_indentation
       end
     end
+
+    handle Test::Finished do |event|
+      decrease_indentation if output_level == :verbose
+    end
   end
 end
