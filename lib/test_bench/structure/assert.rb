@@ -9,10 +9,7 @@ module TestBench
         unless passed
           run.assertion_failed
 
-          backtrace_locations = caller_locations
-          backtrace_locations.shift
-
-          raise TestBench::Assert::Failed.new(backtrace_locations)
+          raise TestBench::Assert::Failed, "Assertion failed"
         end
 
         run.assertion_passed
