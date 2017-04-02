@@ -12,6 +12,12 @@ module TestBench
     end
     attr_writer :logger
 
+    def self.build
+      instance = new
+      instance.settings = Settings.build
+      instance
+    end
+
     def add_subscriber subscriber
       settings.set subscriber
 

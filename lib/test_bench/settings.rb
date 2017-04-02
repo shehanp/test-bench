@@ -1,5 +1,11 @@
 module TestBench
   class Settings
+    def self.build
+      instance = new
+      Environment::Set.(instance)
+      instance
+    end
+
     def abort_on_error
       nil_coalesce :@abort_on_error, Defaults.abort_on_error
     end
