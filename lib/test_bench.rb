@@ -1,3 +1,4 @@
+require 'logger'
 require 'observer'
 require 'set'
 
@@ -8,6 +9,8 @@ require 'test_bench/assert/assertions_module'
 require 'test_bench/assert/assertions_module/proc'
 require 'test_bench/assert/failed'
 require 'test_bench/assert/refute'
+
+require 'test_bench/logger'
 
 require 'test_bench/run'
 require 'test_bench/run/event'

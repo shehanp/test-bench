@@ -20,6 +20,11 @@ module TestBench
     end
     attr_writer :exclude_pattern
 
+    def logger
+      nil_coalesce :@logger, Defaults.logger
+    end
+    attr_writer :logger
+
     def reverse_backtraces
       nil_coalesce :@reverse_backtraces, Defaults.reverse_backtraces
     end

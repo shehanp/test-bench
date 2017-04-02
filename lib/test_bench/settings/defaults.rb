@@ -17,6 +17,10 @@ module TestBench
         '_init.rb$'
       end
 
+      def self.logger
+        false
+      end
+
       def self.reverse_backtraces
         false
       end

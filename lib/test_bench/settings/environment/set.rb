@@ -35,6 +35,7 @@ module TestBench
           set :color, boolean('TEST_BENCH_COLOR'), output_device.tty?
           set :default_file_pattern, env['TEST_BENCH_DEFAULT_FILE_PATTERN']
           set :exclude_pattern, env['TEST_BENCH_EXCLUDE_PATTERN']
+          set :logger, boolean('TEST_BENCH_LOGGER')
           set :reverse_backtraces, boolean('TEST_BENCH_REVERSE_BACKTRACES')
           set :verbose, boolean('TEST_BENCH_VERBOSE')
         end

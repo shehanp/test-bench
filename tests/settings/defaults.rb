@@ -28,6 +28,12 @@ context "Settings" do
       end
     end
 
+    context "Logger" do
+      test "False" do
+        assert settings.logger == false
+      end
+    end
+
     context "Reverse backtraces" do
       test "False" do
         assert settings.reverse_backtraces == false
