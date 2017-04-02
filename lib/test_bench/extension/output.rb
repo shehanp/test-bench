@@ -22,6 +22,14 @@ module TestBench
       end
       attr_writer :output_device
 
+      def decrease_indentation
+        self.indentation -= 1
+      end
+
+      def increase_indentation
+        self.indentation += 1
+      end
+
       def puts text, fg: nil, bg: nil
         if output_level == :quiet
           false

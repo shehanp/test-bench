@@ -8,8 +8,12 @@ module TestBench
       return if text.nil?
 
       if puts text, fg: :green
-        self.indentation += 1
+        increase_indentation
       end
+    end
+
+    handle Context::Exited do |event|
+      decrease_indentation unless output_level == :quiet
     end
   end
 end
