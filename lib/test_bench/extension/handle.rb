@@ -4,6 +4,8 @@ module TestBench
       def handle event
         handler_method_name = Handle::MethodName.get event.class
 
+        return unless methods.include? handler_method_name
+
         handler_method = method handler_method_name
 
         case handler_method.arity
