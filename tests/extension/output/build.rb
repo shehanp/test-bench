@@ -1,11 +1,11 @@
 require_relative '../../test_init'
 
 context "Extension" do
-  context "Build" do
-    context "Output Device" do
+  context "Output" do
+    context "Build" do
       context do
         cls = Class.new do
-          include TestBench::Extension
+          include TestBench::Extension::Output
         end
 
         extension = cls.build
@@ -17,7 +17,7 @@ context "Extension" do
 
       context "Configure method is specialized" do
         cls = Class.new do
-          include TestBench::Extension
+          include TestBench::Extension::Output
 
           def configure
           end

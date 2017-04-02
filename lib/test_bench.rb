@@ -15,6 +15,7 @@ require 'test_bench/extension'
 require 'test_bench/extension/handle'
 require 'test_bench/extension/handle/macro'
 require 'test_bench/extension/handle/method_name'
+require 'test_bench/extension/output'
 
 require 'test_bench/logger'
 
