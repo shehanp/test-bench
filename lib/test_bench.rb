@@ -4,11 +4,17 @@ require 'set'
 
 require 'terminal_colors'
 
+# Core implementation
 require 'test_bench/assert'
 require 'test_bench/assert/assertions_module'
 require 'test_bench/assert/assertions_module/proc'
 require 'test_bench/assert/failed'
 require 'test_bench/assert/refute'
+
+require 'test_bench/extension'
+require 'test_bench/extension/handle'
+require 'test_bench/extension/handle/macro'
+require 'test_bench/extension/handle/method_name'
 
 require 'test_bench/logger'
 
@@ -27,3 +33,6 @@ require 'test_bench/structure'
 require 'test_bench/structure/assert'
 
 require 'test_bench/test_bench'
+
+# Output & bundled extensions
+require 'test_bench/output'
