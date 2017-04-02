@@ -59,10 +59,10 @@ context "Extension" do
 
         extension.output_device = output_device = StringIO.new
 
-        result = extension.verbose 'some text', fg: :green, bg: :black
+        result = extension.verbose 'some text', fg: :green, bg: :black, bold: true
 
         test "Text is written" do
-          control_string = "#{TerminalColors::Apply.('some text', fg: :green, bg: :black)}\n"
+          control_string = "#{TerminalColors::Apply.('some text', fg: :green, bg: :black, bold: true)}\n"
 
           assert output_device.string == control_string
         end

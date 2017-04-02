@@ -30,7 +30,7 @@ module TestBench
         self.indentation += 1
       end
 
-      def puts text, fg: nil, bg: nil
+      def puts text, **color_arguments
         if output_level == :quiet
           false
         else
@@ -41,7 +41,7 @@ module TestBench
           end
 
           if color
-            text = TerminalColors::Apply.(text, fg: fg, bg: bg)
+            text = TerminalColors::Apply.(text, **color_arguments)
           end
 
           output << text
@@ -58,9 +58,9 @@ module TestBench
         output_device.write text
       end
 
-      def verbose text, fg: nil, bg: nil
+      def verbose text, **color_arguments
         if output_level == :verbose
-          puts text, fg: fg, bg: bg
+          puts text, **color_arguments
           true
         else
           false

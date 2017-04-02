@@ -2,6 +2,10 @@ module TestBench
   class Output
     include Extension::Output
 
+    handle Commented do |event|
+      verbose event.prose, fg: :white
+    end
+
     handle Context::Entered do |event|
       text = event.prose
 
