@@ -29,10 +29,22 @@ module TestBench
       end
     end
 
+    handle Test::Failed do |event|
+      text = event.prose || Defaults.test_prose
+
+      puts text, fg: :red
+    end
+
     handle Test::Passed do |event|
       text = event.prose || Defaults.test_prose
 
       puts text, fg: :green
+    end
+
+    handle Test::Skipped do |event|
+      text = event.prose || Defaults.test_prose
+
+      puts text, fg: :yellow
     end
 
     handle Test::Finished do |event|
