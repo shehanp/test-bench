@@ -1,7 +1,36 @@
 module TestBench
   class Output
     include Extension::Handle
-    include Extension::Output
+
+    def write
+      @write ||= Write.new
+    end
+
+
+
+    def indentation
+      write.indentation
+    end
+
+    def indentation= i
+      write.indentation = i
+    end
+
+    def color= color
+      write.color = color
+    end
+
+    def output_level
+      write.output_level
+    end
+
+    def output_level= level
+      write.output_level = level
+    end
+
+    def output_device= device
+      write.device = device
+    end
 
     def self.call(run)
       run.add_subscriber build
@@ -10,7 +39,7 @@ module TestBench
     setting :reverse_backtraces
 
     handle Commented do |event|
-      verbose event.prose, fg: :white
+      write.(event.prose, level: :verbose, fg: :white)
     end
 
     handle Context::Entered do |event|
@@ -18,14 +47,14 @@ module TestBench
 
       return if text.nil?
 
-      if puts text, fg: :green
-        increase_indentation
+      if write.(text, fg: :green)
+        write.increase_indentation
       end
     end
 
     handle Context::Exited do |event|
       unless output_level == :silent || event.prose.nil?
-        decrease_indentation
+        write.decrease_indentation
       end
     end
 
@@ -46,15 +75,15 @@ module TestBench
 
       if reverse_backtraces
         lines.reverse_each do |line|
-          puts line, fg: :red
+          write.(line, fg: :red)
         end
       end
 
-      write_line message_line, fg: :red
+      write.(message_line, level: :silent, fg: :red)
 
       unless reverse_backtraces
         lines.each do |line|
-          puts line, fg: :red
+          write.(line, fg: :red)
         end
       end
     end
@@ -62,31 +91,31 @@ module TestBench
     handle Test::Started do |event|
       text = event.prose || Defaults.test_prose
 
-      if verbose text, fg: :black, bold: true
-        increase_indentation
+      if write.(text, level: :verbose, fg: :black, bold: true)
+        write.increase_indentation
       end
     end
 
     handle Test::Failed do |event|
       text = event.prose || Defaults.test_prose
 
-      puts text, fg: :white, bg: :red, bold: true
+      write.(text, fg: :white, bg: :red, bold: true)
     end
 
     handle Test::Passed do |event|
       text = event.prose || Defaults.test_prose
 
-      puts text, fg: :green
+      write.(text, fg: :green)
     end
 
     handle Test::Skipped do |event|
       text = event.prose || Defaults.test_prose
 
-      puts text, fg: :yellow
+      write.(text, fg: :yellow)
     end
 
     handle Test::Finished do |event|
-      decrease_indentation if output_level == :verbose
+      write.decrease_indentation if output_level == :verbose
     end
   end
 end

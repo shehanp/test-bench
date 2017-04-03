@@ -15,7 +15,6 @@ require 'test_bench/extension'
 require 'test_bench/extension/handle'
 require 'test_bench/extension/handle/macro'
 require 'test_bench/extension/handle/method_name'
-require 'test_bench/extension/output'
 
 require 'test_bench/logger'
 
@@ -29,6 +28,7 @@ require 'test_bench/settings'
 require 'test_bench/settings/defaults'
 require 'test_bench/settings/environment/set'
 require 'test_bench/settings/macro'
+require 'test_bench/settings/output_level'
 
 require 'test_bench/structure'
 require 'test_bench/structure/assert'
@@ -37,5 +37,6 @@ require 'test_bench/test_bench'
 
 # Output & bundled extensions
 require 'test_bench/output'
-require 'test_bench/output/filter_backtrace'
 require 'test_bench/output/defaults'
+require 'test_bench/output/filter_backtrace'
+require 'test_bench/output/write'

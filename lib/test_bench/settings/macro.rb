@@ -1,14 +1,34 @@
 module TestBench
   class Settings
     module Macro
-      def setting attribute
-        attr_accessor attribute
+      def self.extended receiver
+        receiver.extend Setting
+        receiver.extend Settings
+      end
 
-        settings << attribute
+      def self.included cls
+        cls.class_exec do
+          extend Setting
+          extend Settings
+        end
       end
 
       def settings
-        @settings ||= Set.new
+        self.class.settings
+      end
+
+      module Setting
+        def setting attribute
+          attr_accessor attribute
+
+          settings << attribute
+        end
+      end
+
+      module Settings
+        def settings
+          @settings ||= Set.new
+        end
       end
     end
   end

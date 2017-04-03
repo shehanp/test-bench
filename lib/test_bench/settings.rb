@@ -32,9 +32,13 @@ module TestBench
     attr_writer :logger
 
     def output_level
-      return :silent if silent
-
-      verbose ? :verbose : :normal
+      if silent
+        OutputLevel.silent
+      elsif verbose
+        OutputLevel.verbose
+      else
+        OutputLevel.normal
+      end
     end
 
     def silent
