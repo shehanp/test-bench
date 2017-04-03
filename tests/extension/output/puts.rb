@@ -19,8 +19,8 @@ context "Extension" do
         end
       end
 
-      context "Output level is quiet" do
-        extension.output_level = :quiet
+      context "Output level is silent" do
+        extension.output_level = :silent
 
         extension.output_device = output_device = StringIO.new
 

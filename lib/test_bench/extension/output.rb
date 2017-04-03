@@ -29,7 +29,7 @@ module TestBench
       end
 
       def puts text, **color_arguments
-        if output_level == :quiet
+        if output_level == :silent
           false
         else
           output = String.new

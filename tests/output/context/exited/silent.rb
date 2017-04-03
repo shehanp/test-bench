@@ -3,12 +3,12 @@ require_relative '../../../test_init'
 context "Output" do
   context "Context" do
     context "Exited" do
-      context "Quiet output level" do
+      context "Silent output level" do
         event = TestBench::Run::Event::Context::Exited.new 'Some context'
 
         output = TestBench::Output.new
         output.indentation = 1
-        output.output_level = :quiet
+        output.output_level = :silent
 
         output.output_device = output_device = StringIO.new
 

@@ -32,7 +32,7 @@ module TestBench
     handle Test::Failed do |event|
       text = event.prose || Defaults.test_prose
 
-      puts text, fg: :red
+      puts text, fg: :white, bg: :red, bold: true
     end
 
     handle Test::Passed do |event|

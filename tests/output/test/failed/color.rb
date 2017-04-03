@@ -13,8 +13,8 @@ context "Output" do
 
         output.handle event
 
-        test "Prose is written in red" do
-          control_string = "#{TerminalColors::Apply.('Some test', fg: :red)}\n"
+        test "Prose is written in white on red" do
+          control_string = "#{TerminalColors::Apply.('Some test', fg: :white, bg: :red, bold: true)}\n"
 
           assert output_device.string == control_string
         end
