@@ -20,9 +20,10 @@ module TestBench
         @output_level ||= OutputLevel.normal
       end
 
-      def self.build
+      def self.build settings: nil
+        settings ||= Settings.build
+
         device = Defaults.device
-        settings = Settings.build
 
         instance = new
         instance.device = device
@@ -77,7 +78,7 @@ module TestBench
 
       module Defaults
         def self.device
-          $stdour
+          $stdout
         end
 
         def self.level

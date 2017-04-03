@@ -2,11 +2,16 @@ module TestBench
   class Output
     include Extension::Handle
 
+    def configure
+      settings = Settings.build
+
+      self.write = Write.build settings: settings
+    end
+
     def write
       @write ||= Write.new
     end
-
-
+    attr_writer :write
 
     def indentation
       write.indentation
