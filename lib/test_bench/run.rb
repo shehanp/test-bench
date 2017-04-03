@@ -19,8 +19,6 @@ module TestBench
     end
 
     def add_subscriber subscriber
-      settings.set subscriber
-
       add_observer subscriber
     end
 
@@ -66,6 +64,12 @@ module TestBench
       event
     end
 
+    def finished
+      event = Event::Finished.new
+      publish event
+      event
+    end
+
     def test_failed error, prose=nil
       event = Event::Test::Failed.new prose, error
       publish event
@@ -92,6 +96,12 @@ module TestBench
 
     def test_started prose=nil
       event = Event::Test::Started.new prose
+      publish event
+      event
+    end
+
+    def started
+      event = Event::Started.new
       publish event
       event
     end

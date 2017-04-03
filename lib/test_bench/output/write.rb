@@ -23,10 +23,8 @@ module TestBench
       def self.build settings: nil
         settings ||= Settings.build
 
-        device = Defaults.device
-
         instance = new
-        instance.device = device
+        instance.device = Defaults.device
         settings.set instance
         instance
       end

@@ -2,10 +2,14 @@ module TestBench
   class Output
     include Extension::Handle
 
-    def configure
-      settings = Settings.build
+    def self.call run
+      instance = build
 
-      self.write = Write.build settings: settings
+      run.add_subscriber instance
+    end
+
+    def configure
+      self.write = Write.build
     end
 
     def write
