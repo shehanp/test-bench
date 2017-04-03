@@ -1,5 +1,9 @@
 module TestBench
   class Output
+    def self.call(run)
+      run.add_subscriber build
+    end
+
     include Extension
     include Extension::Output
 

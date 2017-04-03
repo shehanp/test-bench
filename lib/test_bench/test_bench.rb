@@ -9,8 +9,8 @@ module TestBench
     # Bind the top-level object to this run instance
     Run::Registry.put run, main_object
 
-    # Attach an instance of Output to the run
-    run.add_subscriber TestBench::Output.build
+    # Attach the default output subsystem to the run
+    TestBench::Output.(run)
 
     # Adds context, test, comment, etc. to the top-level object
     main_object.extend TestBench::Structure
