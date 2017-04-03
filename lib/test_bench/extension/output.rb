@@ -32,24 +32,29 @@ module TestBench
         if output_level == :silent
           false
         else
-          output = String.new
-
-          indentation.times do
-            output << '  '
-          end
-
-          if color
-            text = TerminalColors::Apply.(text, **color_arguments)
-          end
-
-          output << text
-
-          output << $/
-
-          write output
-
+          write_line text, **color_arguments
           true
         end
+      end
+
+      def write_line text, **color_arguments
+        output = String.new
+
+        indentation.times do
+          output << '  '
+        end
+
+        if color
+          text = TerminalColors::Apply.(text, **color_arguments)
+        end
+
+        output << text
+
+        output << $/
+
+        write output
+
+        nil
       end
 
       def write text

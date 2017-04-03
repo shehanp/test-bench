@@ -3,6 +3,8 @@ module TestBench
     include Extension
     include Extension::Output
 
+    setting :reverse_backtraces
+
     handle Commented do |event|
       verbose event.prose, fg: :white
     end
@@ -18,7 +20,39 @@ module TestBench
     end
 
     handle Context::Exited do |event|
-      decrease_indentation unless output_level == :quiet
+      unless output_level == :silent || event.prose.nil?
+        decrease_indentation
+      end
+    end
+
+    handle ErrorRaised do |event|
+      error = event.error
+
+      backtrace = error.backtrace
+
+      unless output_level == :verbose
+        backtrace = FilterBacktrace.(backtrace)
+      end
+
+      message_line = "#{backtrace[0]}: #{error.message} (#{error.class})"
+
+      lines = backtrace[1..-1].map do |frame|
+        "        from #{frame}"
+      end
+
+      if reverse_backtraces
+        lines.reverse_each do |line|
+          puts line, fg: :red
+        end
+      end
+
+      write_line message_line, fg: :red
+
+      unless reverse_backtraces
+        lines.each do |line|
+          puts line, fg: :red
+        end
+      end
     end
 
     handle Test::Started do |event|
