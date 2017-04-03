@@ -1,11 +1,11 @@
 module TestBench
   class Output
+    include Extension::Handle
+    include Extension::Output
+
     def self.call(run)
       run.add_subscriber build
     end
-
-    include Extension
-    include Extension::Output
 
     setting :reverse_backtraces
 

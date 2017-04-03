@@ -5,7 +5,7 @@ context "Extension" do
     context "Build" do
       context do
         cls = Class.new do
-          include TestBench::Extension
+          include TestBench::Extension::Handle
           include TestBench::Extension::Output
         end
 
@@ -18,7 +18,7 @@ context "Extension" do
 
       context "Configure method is specialized" do
         cls = Class.new do
-          include TestBench::Extension
+          include TestBench::Extension::Handle
           include TestBench::Extension::Output
 
           def configure

@@ -4,7 +4,7 @@ context "Extension" do
   context "Handle" do
     context "Event Class Not Handled" do
       cls = Class.new do
-        include TestBench::Extension
+        include TestBench::Extension::Handle
       end
 
       extension = cls.new

@@ -4,7 +4,7 @@ context "Extension" do
   context "Handle" do
     context "Macro" do
       cls = Class.new do
-        include TestBench::Extension
+        include TestBench::Extension::Handle
 
         handle TestBench::Run::Event::Started do
           :started

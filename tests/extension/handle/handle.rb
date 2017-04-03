@@ -4,7 +4,7 @@ context "Extension" do
   context "Handle" do
     context "0-arity" do
       cls = Class.new do
-        include TestBench::Extension
+        include TestBench::Extension::Handle
 
         def handle_started
           :handled_started
@@ -24,7 +24,7 @@ context "Extension" do
 
     context "1-arity" do
       cls = Class.new do
-        include TestBench::Extension
+        include TestBench::Extension::Handle
 
         def handle_started event
           event
@@ -44,7 +44,7 @@ context "Extension" do
 
     context "Other arity" do
       cls = Class.new do
-        include TestBench::Extension
+        include TestBench::Extension::Handle
 
         def handle_started event, extra_arg
         end
