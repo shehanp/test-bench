@@ -1,95 +1,21 @@
 module TestBench
   class Run
     module Event
-      module File
-        Entered = Struct.new :path do
-          def digest
-            "Type: File::Entered, Path: #{path}"
-          end
-        end
-
-        Exited = Struct.new :path do
-          def digest
-            "Type: File::Exited, Path: #{path}"
-          end
-        end
-      end
-
-      module Context
-        Entered = Struct.new :prose do
-          def digest
-            "Type: Context::Entered, Prose: #{prose || '(none)'}"
-          end
-        end
-
-        Exited = Struct.new :prose do
-          def digest
-            "Type: Context::Exited, Prose: #{prose || '(none)'}"
-          end
-        end
-      end
-
-      module Test
-        Started = Struct.new :prose do
-          def digest
-            "Type: Test::Started, Prose: #{prose || '(none)'}"
-          end
-        end
-
-        Finished = Struct.new :prose do
-          def digest
-            "Type: Test::Finished, Prose: #{prose || '(none)'}"
-          end
-        end
-
-        Passed = Struct.new :prose do
-          def digest
-            "Type: Test::Passed, Prose: #{prose || '(none)'}"
-          end
-        end
-
-        Failed = Struct.new :prose, :error do
-          def digest
-            "Type: Test::Failed, Prose: #{prose || '(none)'}, Error: #{error.class}, Message: #{error.message.inspect}"
-          end
-        end
-
-        Skipped = Struct.new :prose do
-          def digest
-            "Type: Test::Skipped, Prose: #{prose || '(none)'}"
-          end
-        end
-      end
-
-      module Assertion
-        Asserted = Class.new do
-          def digest
-            "Type: Assertion::Asserted"
-          end
-        end
-
-        Passed = Class.new do
-          def digest
-            "Type: Assertion::Passed"
-          end
-        end
-
-        Failed = Class.new do
-          def digest
-            "Type: Assertion::Failed"
-          end
-        end
-      end
-
-      Started = Class.new do
+      Asserted = Class.new do
         def digest
-          "Type: Started"
+          "Type: AssertionAsserted"
         end
       end
 
-      Finished = Class.new do
+      AssertionPassed = Class.new do
         def digest
-          "Type: Finished"
+          "Type: AssertionPassed"
+        end
+      end
+
+      AssertionFailed = Class.new do
+        def digest
+          "Type: AssertionFailed"
         end
       end
 
@@ -99,9 +25,75 @@ module TestBench
         end
       end
 
+      ContextEntered = Struct.new :prose do
+        def digest
+          "Type: ContextEntered, Prose: #{prose || '(none)'}"
+        end
+      end
+
+      ContextExited = Struct.new :prose do
+        def digest
+          "Type: ContextExited, Prose: #{prose || '(none)'}"
+        end
+      end
+
       ErrorRaised = Struct.new :error do
         def digest
-          "Type: Error::Raised, Error: #{error.class}, Message: #{error.message.inspect}"
+          "Type: ErrorRaised, Error: #{error.class}, Message: #{error.message.inspect}"
+        end
+      end
+
+      FileEntered = Struct.new :path do
+        def digest
+          "Type: FileEntered, Path: #{path}"
+        end
+      end
+
+      FileExited = Struct.new :path do
+        def digest
+          "Type: FileExited, Path: #{path}"
+        end
+      end
+
+      Finished = Class.new do
+        def digest
+          "Type: Finished"
+        end
+      end
+
+      Started = Class.new do
+        def digest
+          "Type: Started"
+        end
+      end
+
+      TestFailed = Struct.new :prose, :error do
+        def digest
+          "Type: TestFailed, Prose: #{prose || '(none)'}, Error: #{error.class}, Message: #{error.message.inspect}"
+        end
+      end
+
+      TestFinished = Struct.new :prose do
+        def digest
+          "Type: TestFinished, Prose: #{prose || '(none)'}"
+        end
+      end
+
+      TestPassed = Struct.new :prose do
+        def digest
+          "Type: TestPassed, Prose: #{prose || '(none)'}"
+        end
+      end
+
+      TestSkipped = Struct.new :prose do
+        def digest
+          "Type: TestSkipped, Prose: #{prose || '(none)'}"
+        end
+      end
+
+      TestStarted = Struct.new :prose do
+        def digest
+          "Type: TestStarted, Prose: #{prose || '(none)'}"
         end
       end
     end

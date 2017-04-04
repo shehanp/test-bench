@@ -4,7 +4,7 @@ context "Output" do
   context "Context" do
     context "Entered" do
       context "No Prose" do
-        event = TestBench::Run::Event::Context::Entered.new
+        event = TestBench::Run::Event::ContextEntered.new
 
         output = TestBench::Output.new
 

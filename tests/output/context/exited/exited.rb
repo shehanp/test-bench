@@ -3,7 +3,7 @@ require_relative '../../../test_init'
 context "Output" do
   context "Context" do
     context "Exited" do
-      event = TestBench::Run::Event::Context::Exited.new 'Some context'
+      event = TestBench::Run::Event::ContextExited.new 'Some context'
 
       output = TestBench::Output.new
       output.indentation = 1

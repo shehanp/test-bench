@@ -3,7 +3,7 @@ require_relative '../../test_init'
 context "Structure" do
   context "Assert" do
     context "Failed" do
-      structure = TestBench::Structure::Example.build
+      structure = Controls::Structure.example
 
       context do
         begin
@@ -14,15 +14,15 @@ context "Structure" do
         end
 
         test "Asserted event is published" do
-          assert structure.published?(TestBench::Run::Event::Assertion::Asserted)
+          assert structure.published?(TestBench::Run::Event::Asserted)
         end
 
         test "Assertion passed event is not published" do
-          refute structure.published?(TestBench::Run::Event::Assertion::Passed)
+          refute structure.published?(TestBench::Run::Event::AssertionPassed)
         end
 
         test "Assertion failed event is published" do
-          assert structure.published?(TestBench::Run::Event::Assertion::Failed)
+          assert structure.published?(TestBench::Run::Event::AssertionFailed)
         end
       end
 

@@ -4,7 +4,7 @@ context "Structure" do
   context "Test" do
     context "No prose" do
       context "Pass" do
-        structure = TestBench::Structure::Example.build
+        structure = Controls::Structure.example
 
         structure.instance_exec do
           test do
@@ -12,7 +12,7 @@ context "Structure" do
         end
 
         context "Started event" do
-          event = TestBench::Run::Event::Test::Started.new nil
+          event = TestBench::Run::Event::TestStarted.new nil
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -20,7 +20,7 @@ context "Structure" do
         end
 
         context "Passed event" do
-          event = TestBench::Run::Event::Test::Passed.new nil
+          event = TestBench::Run::Event::TestPassed.new nil
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -28,7 +28,7 @@ context "Structure" do
         end
 
         context "Finished event" do
-          event = TestBench::Run::Event::Test::Finished.new nil
+          event = TestBench::Run::Event::TestFinished.new nil
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -37,7 +37,7 @@ context "Structure" do
       end
 
       context "Fail" do
-        structure = TestBench::Structure::Example.build
+        structure = Controls::Structure.example
 
         error = RuntimeError.new
 
@@ -48,7 +48,7 @@ context "Structure" do
         end
 
         context "Failed event" do
-          event = TestBench::Run::Event::Test::Failed.new nil, error
+          event = TestBench::Run::Event::TestFailed.new nil, error
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -57,14 +57,14 @@ context "Structure" do
       end
 
       context "Skip" do
-        structure = TestBench::Structure::Example.build
+        structure = Controls::Structure.example
 
         structure.instance_exec do
           test
         end
 
         context "Failed event" do
-          event = TestBench::Run::Event::Test::Skipped.new nil
+          event = TestBench::Run::Event::TestSkipped.new nil
 
           test "Prose is nil" do
             assert structure.published?(event)

@@ -2,7 +2,7 @@ require_relative '../test_init'
 
 context "Run" do
   context "Publish Event" do
-    subscriber = TestBench::Run::Subscriber::Example.new
+    subscriber = Controls::Subscriber.example
 
     run = TestBench::Run.new
     run.add_subscriber subscriber

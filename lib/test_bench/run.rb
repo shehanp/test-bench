@@ -23,19 +23,19 @@ module TestBench
     end
 
     def asserted
-      event = Event::Assertion::Asserted.new
+      event = Event::Asserted.new
       publish event
       event
     end
 
     def assertion_failed
-      event = Event::Assertion::Failed.new
+      event = Event::AssertionFailed.new
       publish event
       event
     end
 
     def assertion_passed
-      event = Event::Assertion::Passed.new
+      event = Event::AssertionPassed.new
       publish event
       event
     end
@@ -47,13 +47,13 @@ module TestBench
     end
 
     def context_entered prose=nil
-      event = Event::Context::Entered.new prose
+      event = Event::ContextEntered.new prose
       publish event
       event
     end
 
     def context_exited prose=nil
-      event = Event::Context::Exited.new prose
+      event = Event::ContextExited.new prose
       publish event
       event
     end
@@ -71,31 +71,31 @@ module TestBench
     end
 
     def test_failed error, prose=nil
-      event = Event::Test::Failed.new prose, error
+      event = Event::TestFailed.new prose, error
       publish event
       event
     end
 
     def test_finished prose=nil
-      event = Event::Test::Finished.new prose
+      event = Event::TestFinished.new prose
       publish event
       event
     end
 
     def test_passed prose=nil
-      event = Event::Test::Passed.new prose
+      event = Event::TestPassed.new prose
       publish event
       event
     end
 
     def test_skipped prose=nil
-      event = Event::Test::Skipped.new prose
+      event = Event::TestSkipped.new prose
       publish event
       event
     end
 
     def test_started prose=nil
-      event = Event::Test::Started.new prose
+      event = Event::TestStarted.new prose
       publish event
       event
     end

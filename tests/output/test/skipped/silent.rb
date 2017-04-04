@@ -4,7 +4,7 @@ context "Output" do
   context "Test" do
     context "Skipped" do
       context "Silent output level" do
-        event = TestBench::Run::Event::Test::Skipped.new 'Some test'
+        event = TestBench::Run::Event::TestSkipped.new 'Some test'
 
         output = TestBench::Output.new
         output.output_level = :silent

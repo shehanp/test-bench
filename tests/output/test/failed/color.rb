@@ -4,7 +4,7 @@ context "Output" do
   context "Test" do
     context "Failed" do
       context "Color" do
-        event = TestBench::Run::Event::Test::Failed.new 'Some test'
+        event = TestBench::Run::Event::TestFailed.new 'Some test'
 
         output = TestBench::Output.new
         output.color = true

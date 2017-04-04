@@ -2,7 +2,7 @@ require_relative '../test_init'
 
 context "Structure" do
   context "Comment" do
-    structure = TestBench::Structure::Example.build
+    structure = Controls::Structure.example
 
     structure.instance_exec do
       comment "Some comment"

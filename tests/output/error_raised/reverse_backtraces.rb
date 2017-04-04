@@ -3,7 +3,7 @@ require_relative '../../test_init'
 context "Output" do
   context "Error Raised" do
     context "Reverse Backtraces" do
-      error = TestBench::Output::BacktraceFilter::ExampleError.build
+      error = Controls::Error.example
 
       event = TestBench::Run::Event::ErrorRaised.new error
 
@@ -16,7 +16,7 @@ context "Output" do
       output.handle event
 
       test "Backtrace is reversed" do
-        control_string = TestBench::Output::BacktraceFilter::ExampleError.reversed
+        control_string = Controls::Error::Backtrace::Text.reversed
 
         assert output_device.string == control_string
       end

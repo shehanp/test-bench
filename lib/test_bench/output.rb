@@ -51,7 +51,7 @@ module TestBench
       write.(event.prose, level: :verbose, fg: :white)
     end
 
-    handle Context::Entered do |event|
+    handle ContextEntered do |event|
       text = event.prose
 
       return if text.nil?
@@ -61,7 +61,7 @@ module TestBench
       end
     end
 
-    handle Context::Exited do |event|
+    handle ContextExited do |event|
       unless output_level == :silent || event.prose.nil?
         write.decrease_indentation
       end
@@ -97,7 +97,7 @@ module TestBench
       end
     end
 
-    handle Test::Started do |event|
+    handle TestStarted do |event|
       text = event.prose || Defaults.test_prose
 
       if write.(text, level: :verbose, fg: :black, bold: true)
@@ -105,25 +105,25 @@ module TestBench
       end
     end
 
-    handle Test::Failed do |event|
+    handle TestFailed do |event|
       text = event.prose || Defaults.test_prose
 
       write.(text, fg: :white, bg: :red, bold: true)
     end
 
-    handle Test::Passed do |event|
+    handle TestPassed do |event|
       text = event.prose || Defaults.test_prose
 
       write.(text, fg: :green)
     end
 
-    handle Test::Skipped do |event|
+    handle TestSkipped do |event|
       text = event.prose || Defaults.test_prose
 
       write.(text, fg: :yellow)
     end
 
-    handle Test::Finished do |event|
+    handle TestFinished do |event|
       write.decrease_indentation if output_level == :verbose
     end
   end

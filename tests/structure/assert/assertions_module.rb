@@ -7,7 +7,7 @@ context "Structure" do
 
       assertions_module = Module.new
 
-      structure = TestBench::Structure::Example.build
+      structure = Controls::Structure.example
 
       structure.instance_exec do
         assert subject, assertions_module

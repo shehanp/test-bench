@@ -2,7 +2,7 @@ require_relative '../../test_init'
 
 context "Output" do
   context "Error Raised" do
-    error = TestBench::Output::BacktraceFilter::ExampleError.build
+    error = Controls::Error.example
 
     event = TestBench::Run::Event::ErrorRaised.new error
 
@@ -13,7 +13,7 @@ context "Output" do
     output.handle event
 
     test "Error message and filtered backtrace is written" do
-      control_string = TestBench::Output::BacktraceFilter::ExampleError.filtered
+      control_string = Controls::Error::Backtrace::Text.filtered
 
       assert output_device.string == control_string
     end

@@ -9,9 +9,7 @@ module TestBench
             event_class = event_or_event_class.class
           end
 
-          namespace = event_class.name
-
-          namespace = namespace.sub Pattern.namespace, ''
+          *, namespace = event_class.name.split '::'
 
           underscore_case = namespace.gsub Pattern.separator do |str|
             str.downcase!
@@ -29,10 +27,6 @@ module TestBench
         end
 
         module Pattern
-          def self.namespace
-            @namespace ||= %r{\A#{Regexp.escape Run::Event.name}::}
-          end
-
           def self.separator
             @separator ||= %r{(?:\A|[a-z0-9](?:::)?)[A-Z]}
           end

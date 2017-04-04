@@ -39,4 +39,8 @@ require 'test_bench/test_bench'
 require 'test_bench/output'
 require 'test_bench/output/defaults'
 require 'test_bench/output/filter_backtrace'
+
 require 'test_bench/output/write'
+require 'test_bench/output/write/dependency'
+
+require 'test_bench/output/handlers/commented'

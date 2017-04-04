@@ -1,8 +1,12 @@
 module TestBench
-  class Run
+  module Controls
     module Subscriber
+      def self.example
+        Example.new
+      end
+
       class Example
-        include Subscriber
+        include TestBench::Run::Subscriber
 
         def handle event
           events << event

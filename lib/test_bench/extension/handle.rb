@@ -10,15 +10,15 @@ module TestBench
           include Run::Event
           include Run::Subscriber
 
-          include HandleMethod
+          include Call
         end
       end
 
       def configure
       end
 
-      module HandleMethod
-        def handle event
+      module Call
+        def call event
           handler_method_name = MethodName.get event.class
 
           return unless methods.include? handler_method_name
@@ -34,6 +34,7 @@ module TestBench
             raise ArgumentError, "Extension handlers must be of arity 0 or 1, not #{handler_method.arity}"
           end
         end
+        alias_method :handle, :call #XXX
       end
 
       module Build

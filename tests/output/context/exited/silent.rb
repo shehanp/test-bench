@@ -4,7 +4,7 @@ context "Output" do
   context "Context" do
     context "Exited" do
       context "Silent output level" do
-        event = TestBench::Run::Event::Context::Exited.new 'Some context'
+        event = TestBench::Run::Event::ContextExited.new 'Some context'
 
         output = TestBench::Output.new
         output.indentation = 1

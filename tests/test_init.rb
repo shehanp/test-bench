@@ -8,4 +8,6 @@ end
 require 'ostruct'
 require 'stringio'
 
-require 'test_bench/examples'
+require 'test_bench/controls'
+
+Controls = TestBench::Controls

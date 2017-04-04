@@ -3,7 +3,7 @@ require_relative '../../test_init'
 context "Structure" do
   context "Test" do
     context "Block Raises Error" do
-      structure = TestBench::Structure::Example.build
+      structure = Controls::Structure.example
 
       error = RuntimeError.new
 
@@ -21,7 +21,7 @@ context "Structure" do
       end
 
       test "Failed event is published" do
-        event = TestBench::Run::Event::Test::Failed.new 'Some test', error
+        event = TestBench::Run::Event::TestFailed.new 'Some test', error
 
         assert structure.published?(event)
       end
@@ -33,7 +33,7 @@ context "Structure" do
       end
 
       test "Test finished event is published" do
-        assert structure.published?(TestBench::Run::Event::Test::Finished)
+        assert structure.published?(TestBench::Run::Event::TestFinished)
       end
     end
   end

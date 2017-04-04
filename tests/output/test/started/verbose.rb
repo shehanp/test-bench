@@ -4,7 +4,7 @@ context "Output" do
   context "Test" do
     context "Started" do
       context "Verbose" do
-        event = TestBench::Run::Event::Test::Started.new 'Some test'
+        event = TestBench::Run::Event::TestStarted.new 'Some test'
 
         output = TestBench::Output.new
         output.output_level = :verbose

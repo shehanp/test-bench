@@ -3,7 +3,7 @@ require_relative '../../test_init'
 context "Structure" do
   context "Context" do
     context "Block Raises Error" do
-      structure = TestBench::Structure::Example.build
+      structure = Controls::Structure.example
 
       error = RuntimeError.new
 
@@ -27,7 +27,7 @@ context "Structure" do
       end
 
       test "Context exited event is published" do
-        assert structure.published?(TestBench::Run::Event::Context::Exited)
+        assert structure.published?(TestBench::Run::Event::ContextExited)
       end
     end
   end

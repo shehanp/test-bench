@@ -4,7 +4,7 @@ context "Output" do
   context "Context" do
     context "Exited" do
       context "No Prose" do
-        event = TestBench::Run::Event::Context::Exited.new
+        event = TestBench::Run::Event::ContextExited.new
 
         output = TestBench::Output.new
         output.indentation = 1
