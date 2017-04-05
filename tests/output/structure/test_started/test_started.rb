@@ -7,9 +7,10 @@ context "Output" do
 
       device = StringIO.new
 
-      Controls::Output::Write.configure(
+      write = Controls::Output::Write.configure(
         handle,
-        device: device
+        device: device,
+        indentation: 0
       )
 
       event = Controls::Event.test_started
@@ -18,6 +19,10 @@ context "Output" do
 
       test "Nothing is written" do
         assert device.string == ''
+      end
+
+      test "Indentation is unchanged" do
+        assert write.indentation == 0
       end
     end
   end

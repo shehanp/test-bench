@@ -8,11 +8,7 @@ context "Output" do
 
         device = StringIO.new
 
-        Controls::Output::Write.configure(
-          handle,
-          device: device,
-          color: true
-        )
+        Controls::Output::Write.configure handle, device: device, color: true
 
         event = Controls::Event.context_entered
 

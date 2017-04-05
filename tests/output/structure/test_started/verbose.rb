@@ -8,10 +8,11 @@ context "Output" do
 
         device = StringIO.new
 
-        Controls::Output::Write.configure(
+        write = Controls::Output::Write.configure(
           handle,
           device: device,
-          output_level: :verbose
+          output_level: :verbose,
+          indentation: 0
         )
 
         event = Controls::Event.test_started
@@ -20,6 +21,10 @@ context "Output" do
 
         test "Prose is written" do
           assert device.string == "Some test\n"
+        end
+
+        test "Indentation is increased" do
+          assert write.indentation == 1
         end
       end
     end

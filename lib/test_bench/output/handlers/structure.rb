@@ -6,19 +6,35 @@ module TestBench
         include Run::Event
 
         handle ContextEntered do |event|
-          write.(event.prose, fg: :green) unless event.prose.nil?
+          return if event.prose.nil?
+
+          if write.(event.prose, fg: :green)
+            write.increase_indentation
+          end
+        end
+
+        handle ContextExited do |event|
+          unless event.prose.nil? || write.output_level == :silent
+            write.decrease_indentation
+          end
         end
 
         handle TestStarted do |event|
           prose = event.prose || Defaults.test_prose
 
-          write.(prose, level: :verbose, fg: :black, bold: true)
+          if write.(prose, level: :verbose, fg: :black, bold: true)
+            write.increase_indentation
+          end
         end
 
         handle TestFinished do |event|
           prose = event.prose || Defaults.test_prose
 
           write.(prose, fg: :green)
+
+          if write.output_level == :verbose
+            write.decrease_indentation
+          end
         end
       end
     end
