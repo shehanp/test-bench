@@ -3,6 +3,7 @@ module TestBench
     def self.included cls
       cls.class_exec do
         extend Build
+        extend Call
         extend HandleMacro
       end
     end
@@ -41,6 +42,13 @@ module TestBench
         instance = new *handlers
         instance.configure
         instance
+      end
+    end
+
+    module Call
+      def call run
+        instance = build
+        instance.(run)
       end
     end
   end
