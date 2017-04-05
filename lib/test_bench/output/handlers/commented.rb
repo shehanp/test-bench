@@ -6,7 +6,7 @@ module TestBench
         include Run::Event
 
         handle Commented do |event|
-          write.(event.prose, level: :verbose, fg: :white)
+          write.(event.prose, level: Settings::OutputLevel.verbose, fg: :white)
         end
       end
     end

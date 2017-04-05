@@ -53,7 +53,7 @@ module TestBench
 
       backtrace = error.backtrace
 
-      unless output_level == :verbose
+      unless output_level == Settings::OutputLevel.verbose
         backtrace = FilterBacktrace.(backtrace)
       end
 
@@ -69,7 +69,7 @@ module TestBench
         end
       end
 
-      write.(message_line, level: :silent, fg: :red)
+      write.(message_line, level: Settings::OutputLevel.silent, fg: :red)
 
       unless reverse_backtraces
         lines.each do |line|
@@ -81,7 +81,7 @@ module TestBench
     handle TestStarted do |event|
       text = event.prose || Defaults.test_prose
 
-      if write.(text, level: :verbose, fg: :black, bold: true)
+      if write.(text, level: Settings::OutputLevel.verbose, fg: :black, bold: true)
         write.increase_indentation
       end
     end
@@ -105,7 +105,7 @@ module TestBench
     end
 
     handle TestFinished do |event|
-      write.decrease_indentation if output_level == :verbose
+      write.decrease_indentation if output_level == Settings::OutputLevel.verbose
     end
   end
 end
