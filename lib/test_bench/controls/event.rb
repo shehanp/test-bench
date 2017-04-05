@@ -2,90 +2,90 @@ module TestBench
   module Controls
     module Event
       def self.asserted
-        Asserted.new
+        Run::Event::Asserted.new
       end
 
       def self.assertion_passed
-        AssertionPassed.new
+        Run::Event::AssertionPassed.new
       end
 
       def self.assertion_failed
-        AssertionFailed.new
+        Run::Event::AssertionFailed.new
       end
 
-      def self.commented prose=nil
+      def self.commented prose: nil
         prose = Prose.example prose, default: 'Some comment'
 
         Run::Event::Commented.new prose
       end
 
-      def self.context_entered prose=nil
+      def self.context_entered prose: nil
         prose = Prose.example prose, default: 'Some Context'
 
-        ContextEntered.new prose
+        Run::Event::ContextEntered.new prose
       end
 
-      def self.context_exited prose=nil
+      def self.context_exited prose: nil
         prose = Prose.example prose, default: 'Some Context'
 
-        ContextExited.new prose
+        Run::Event::ContextExited.new prose
       end
 
       def self.error_raised error=nil
         error ||= Error.build
 
-        ErrorRaised.new error
+        Run::Event::ErrorRaised.new error
       end
 
-      def self.file_entered path=nil
+      def self.file_entered path: nil
         path ||= Path.example
 
-        FileEntered.new path
+        Run::Event::FileEntered.new path
       end
 
-      def self.file_exited path=nil
+      def self.file_exited path: nil
         path ||= Path.example
 
-        FileExited.new path
+        Run::Event::FileExited.new path
       end
 
       def self.finished
-        Finished.new
+        Run::Event::Finished.new
       end
 
       def self.started
-        Started.new
+        Run::Event::Started.new
       end
 
-      def self.test_failed prose, error: nil
+      def self.test_failed prose: nil, error: nil
         error ||= Error.build
         prose = Prose.example prose, default: 'Some test'
 
-        TestFailed.new prose, error
+        Run::Event::TestFailed.new prose, error
       end
 
-      def self.test_finished prose=nil
+      def self.test_finished prose: nil
         prose = Prose.example prose, default: 'Some test'
 
-        TestFinished.new prose
+        Run::Event::TestFinished.new prose
       end
 
-      def self.test_passed prose=nil
+      def self.test_passed prose: nil
         prose = Prose.example prose, default: 'Some test'
 
-        TestPassed.new prose
+        Run::Event::TestPassed.new prose
       end
 
       def self.test_skipped
         prose = Prose.example prose, default: 'Some test'
 
-        TestSkipped.new prose
+        Run::Event::TestSkipped.new prose
       end
 
-      def self.test_started prose=nil
+      def self.test_started prose: nil
         prose = Prose.example prose, default: 'Some test'
 
-        TestStarted.new prose
+        Run::Event::TestStarted.new prose
       end
     end
   end

@@ -1,6 +1,7 @@
 module TestBench
   class Output
     include Extension::Handle
+    include Run::Event
 
     def self.call run
       instance = build
@@ -46,22 +47,6 @@ module TestBench
     end
 
     setting :reverse_backtraces
-
-    handle ContextEntered do |event|
-      text = event.prose
-
-      return if text.nil?
-
-      if write.(text, fg: :green)
-        write.increase_indentation
-      end
-    end
-
-    handle ContextExited do |event|
-      unless output_level == :silent || event.prose.nil?
-        write.decrease_indentation
-      end
-    end
 
     handle ErrorRaised do |event|
       error = event.error

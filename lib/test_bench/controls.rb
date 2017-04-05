@@ -1,6 +1,7 @@
 require 'test_bench/controls/error'
 require 'test_bench/controls/error/backtrace'
 require 'test_bench/controls/event'
+require 'test_bench/controls/output/handle'
 require 'test_bench/controls/output/write'
 require 'test_bench/controls/path'
 require 'test_bench/controls/prose'

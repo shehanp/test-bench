@@ -2,10 +2,10 @@ module TestBench
   class Output
     module Handlers
       class Commented
-        include Extension::Handle
-        include Write::Dependency
+        include Handle
+        include Run::Event
 
-        handle Run::Event::Commented do |event|
+        handle Commented do |event|
           write.(event.prose, level: :verbose, fg: :white)
         end
       end
