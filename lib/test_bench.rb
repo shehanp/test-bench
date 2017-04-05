@@ -45,5 +45,4 @@ require 'test_bench/output/write/dependency'
 
 require 'test_bench/output/handle'
 
-require 'test_bench/output/handlers/commented'
 require 'test_bench/output/handlers/structure'
