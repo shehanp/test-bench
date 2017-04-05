@@ -2,7 +2,7 @@ module TestBench
   class Assert
     module AssertionsModule
       module Proc
-        def raises_error? error_class=nil
+        def raises? error_class=nil
           call
 
           false

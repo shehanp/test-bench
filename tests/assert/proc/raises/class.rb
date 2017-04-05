@@ -8,7 +8,7 @@ context "Assert" do
 
         context "Instance is raised" do
           result = TestBench::Assert.(->{ raise error_class }, TestBench::Assert::AssertionsModule::Proc) do
-            raises_error? error_class
+            raises? error_class
           end
 
           test "Returns true" do
@@ -20,7 +20,7 @@ context "Assert" do
           subclass = Class.new error_class
 
           result = TestBench::Assert.(->{ raise subclass }, TestBench::Assert::AssertionsModule::Proc) do
-            raises_error? error_class
+            raises? error_class
           end
 
           test "Returns false" do
@@ -30,7 +30,7 @@ context "Assert" do
 
         context "Error not raised" do
           result = TestBench::Assert.(->{ }, TestBench::Assert::AssertionsModule::Proc) do
-            raises_error? error_class
+            raises? error_class
           end
 
           test "Returns false" do

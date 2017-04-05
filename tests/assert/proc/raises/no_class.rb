@@ -6,7 +6,7 @@ context "Assert" do
       context "Error Class Not Specified" do
         context "Error raised" do
           result = TestBench::Assert.(->{ fail }, TestBench::Assert::AssertionsModule::Proc) do
-            raises_error?
+            raises?
           end
 
           test "Returns true" do
@@ -16,7 +16,7 @@ context "Assert" do
 
         context "Error not raised" do
           result = TestBench::Assert.(->{ }, TestBench::Assert::AssertionsModule::Proc) do
-            raises_error?
+            raises?
           end
 
           test "Returns false" do

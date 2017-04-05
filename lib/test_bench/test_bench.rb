@@ -19,7 +19,7 @@ module TestBench
     # that this works:
     #
     # assert proc { ... } do
-    #   raises_error?
+    #   raises?
     # end
     ::Proc.class_exec do
       const_set :Assertions, Assert::AssertionsModule::Proc
