@@ -1,23 +1,23 @@
 require_relative '../../test_init'
 
 context "Output" do
-  context "Error Raised" do
+  context "Display Error" do
     context "Silent output level" do
       error = Controls::Error.example
 
-      event = TestBench::Run::Event::ErrorRaised.new error
+      device = StringIO.new
 
-      output = TestBench::Output.new
-      output.output_level = :silent
+      display_error = TestBench::Output::DisplayError.new
+      display_error.output_level = :silent
 
-      output.output_device = output_device = StringIO.new
+      Controls::Output::Write.configure display_error, device: device
 
-      output.handle event
+      display_error.(error)
 
       test "Error message is written without remainder of backtrace" do
         control_string = Controls::Error::Backtrace::Text.filtered.each_line.first
 
-        assert output_device.string == control_string
+        assert device.string == control_string
       end
     end
   end

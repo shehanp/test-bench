@@ -5,6 +5,12 @@ require 'set'
 require 'terminal_colors'
 
 # Core implementation
+require 'test_bench/settings'
+require 'test_bench/settings/defaults'
+require 'test_bench/settings/environment/set'
+require 'test_bench/settings/macro'
+require 'test_bench/settings/output_level'
+
 require 'test_bench/assert'
 require 'test_bench/assert/assertions_module'
 require 'test_bench/assert/assertions_module/proc'
@@ -24,25 +30,19 @@ require 'test_bench/run/registry'
 require 'test_bench/run/registry/key'
 require 'test_bench/run/subscriber'
 
-require 'test_bench/settings'
-require 'test_bench/settings/defaults'
-require 'test_bench/settings/environment/set'
-require 'test_bench/settings/macro'
-require 'test_bench/settings/output_level'
-
 require 'test_bench/structure'
 require 'test_bench/structure/assert'
 
 require 'test_bench/test_bench'
 
 # Output & bundled extensions
-require 'test_bench/output'
-require 'test_bench/output/defaults'
-require 'test_bench/output/filter_backtrace'
-
 require 'test_bench/output/write'
 require 'test_bench/output/write/dependency'
 
+require 'test_bench/output/defaults'
+require 'test_bench/output/display_error'
+require 'test_bench/output/display_error/filter_backtrace'
 require 'test_bench/output/handle'
-
 require 'test_bench/output/handlers/structure'
+
+require 'test_bench/output'

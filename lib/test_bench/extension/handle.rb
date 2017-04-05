@@ -37,8 +37,11 @@ module TestBench
       end
 
       module Build
-        def build
+        def build settings: nil
+          settings ||= Settings.build
+
           instance = new
+          settings.set instance
           instance.configure
           instance
         end

@@ -1,20 +1,20 @@
 module TestBench
   class Run
+    include Settings::Macro
     include Observable
 
-    def settings
-      @settings ||= Settings.new
-    end
-    attr_writer :settings
+    setting :logger
 
-    def logger
-      @logger ||= Logger.configure self, enabled: settings.logger
+    def log
+      @log ||= Logger.configure self, enabled: logger
     end
-    attr_writer :logger
+    attr_writer :log
 
-    def self.build
+    def self.build settings: nil
+      settings ||= Settings.build
+
       instance = new
-      instance.settings = Settings.build
+      settings.set instance
       instance
     end
 
@@ -116,7 +116,15 @@ module TestBench
         digest = event.inspect
       end
 
-      logger.debug "Published event (#{digest})"
+      log.debug "Published event (#{digest})"
+    end
+
+    def subscribed? receiver
+      observers.key? receiver
+    end
+
+    def observers
+      @observer_peers
     end
   end
 end

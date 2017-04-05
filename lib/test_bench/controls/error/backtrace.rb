@@ -26,9 +26,7 @@ module TestBench
           def self.reversed
             <<~TEXT
                     from #{Path.example}:1:in `foo'
-                    from #{Backtrace.test_bench_lib}/test_bench/some_file.rb:2:in `bar'
-                    from #{Path.example}:3:in `baz'
-            #{Backtrace.test_bench_lib}/test_bench/some_file.rb:4:in `qux': Some error (#{Example})
+            #{Path.example}:3:in `baz': Some error (#{Example})
             TEXT
           end
 
@@ -38,6 +36,15 @@ module TestBench
                     from #{Path.example}:3:in `baz'
                     from #{Backtrace.test_bench_lib}/test_bench/some_file.rb:2:in `bar'
                     from #{Path.example}:1:in `foo'
+            TEXT
+          end
+
+          def self.reversed_unfiltered
+            <<~TEXT
+                    from #{Path.example}:1:in `foo'
+                    from #{Backtrace.test_bench_lib}/test_bench/some_file.rb:2:in `bar'
+                    from #{Path.example}:3:in `baz'
+            #{Backtrace.test_bench_lib}/test_bench/some_file.rb:4:in `qux': Some error (#{Example})
             TEXT
           end
         end

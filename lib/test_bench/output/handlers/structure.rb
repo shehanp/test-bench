@@ -5,6 +5,16 @@ module TestBench
         include Handle
         include Run::Event
 
+        def display_error
+          @display_error ||= DisplayError.new
+        end
+        attr_writer :display_error
+
+        def configure
+          self.write = writer = Write.build
+          self.display_error = DisplayError.build writer: writer
+        end
+
         handle Commented do |event|
           write.(event.prose, level: Settings::OutputLevel.verbose, fg: :white)
         end
@@ -21,6 +31,10 @@ module TestBench
           unless event.prose.nil? || write.output_level == Settings::OutputLevel.silent
             write.decrease_indentation
           end
+        end
+
+        handle ErrorRaised do |event|
+          display_error.(event.error)
         end
 
         handle TestStarted do |event|

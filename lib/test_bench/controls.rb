@@ -1,5 +1,7 @@
 require 'test_bench/controls/error'
 require 'test_bench/controls/error/backtrace'
+require 'test_bench/controls/extension/handler'
+require 'test_bench/controls/extension'
 require 'test_bench/controls/event'
 require 'test_bench/controls/output/write'
 require 'test_bench/controls/path'
