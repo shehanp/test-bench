@@ -18,14 +18,6 @@ module TestBench
     end
     attr_writer :write
 
-    def indentation
-      write.indentation
-    end
-
-    def indentation= i
-      write.indentation = i
-    end
-
     def color= color
       write.color = color
     end
@@ -76,24 +68,6 @@ module TestBench
           write.(line, fg: :red)
         end
       end
-    end
-
-    handle TestFailed do |event|
-      text = event.prose || Defaults.test_prose
-
-      write.(text, fg: :white, bg: :red, bold: true)
-    end
-
-    handle TestPassed do |event|
-      text = event.prose || Defaults.test_prose
-
-      write.(text, fg: :green)
-    end
-
-    handle TestSkipped do |event|
-      text = event.prose || Defaults.test_prose
-
-      write.(text, fg: :yellow)
     end
   end
 end

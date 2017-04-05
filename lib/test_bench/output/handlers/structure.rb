@@ -31,6 +31,12 @@ module TestBench
           end
         end
 
+        handle TestFailed do |event|
+          prose = event.prose || Defaults.test_prose
+
+          write.(prose, fg: :white, bg: :red, bold: true)
+        end
+
         handle TestFinished do |event|
           prose = event.prose || Defaults.test_prose
 
@@ -39,6 +45,18 @@ module TestBench
           if write.output_level == Settings::OutputLevel.verbose
             write.decrease_indentation
           end
+        end
+
+        handle TestPassed do |event|
+          prose = event.prose || Defaults.test_prose
+
+          write.(prose, fg: :green)
+        end
+
+        handle TestSkipped do |event|
+          text = event.prose || Defaults.test_prose
+
+          write.(text, fg: :yellow)
         end
       end
     end

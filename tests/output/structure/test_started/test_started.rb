@@ -7,11 +7,7 @@ context "Output" do
 
       device = StringIO.new
 
-      write = Controls::Output::Write.configure(
-        handle,
-        device: device,
-        indentation: 0
-      )
+      write = Controls::Output::Write.configure handle, device: device, indentation: 0
 
       event = Controls::Event.test_started
 

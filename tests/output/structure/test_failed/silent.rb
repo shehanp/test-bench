@@ -2,7 +2,7 @@ require_relative '../../../test_init'
 
 context "Output" do
   context "Structure" do
-    context "Test Finished" do
+    context "Test Failed" do
       context "Silent output level" do
         handle = TestBench::Output::Handlers::Structure.new
 
@@ -10,7 +10,7 @@ context "Output" do
 
         Controls::Output::Write.configure handle, device: device, output_level: :silent
 
-        event = Controls::Event.test_finished
+        event = Controls::Event.test_failed
 
         handle.(event)
 

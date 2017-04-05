@@ -8,12 +8,7 @@ context "Output" do
 
         device = StringIO.new
 
-        Controls::Output::Write.configure(
-          handle,
-          device: device,
-          color: true,
-          output_level: :verbose
-        )
+        Controls::Output::Write.configure handle, device: device, color: true, output_level: :verbose
 
         event = Controls::Event.test_started
 

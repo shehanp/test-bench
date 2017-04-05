@@ -32,7 +32,7 @@ module TestBench
       end
 
       def self.error_raised error=nil
-        error ||= Error.build
+        error ||= Error.example
 
         Run::Event::ErrorRaised.new error
       end
@@ -58,7 +58,7 @@ module TestBench
       end
 
       def self.test_failed prose: nil, error: nil
-        error ||= Error.build
+        error ||= Error.example
         prose = Prose.example prose, default: 'Some test'
 
         Run::Event::TestFailed.new prose, error
@@ -76,7 +76,7 @@ module TestBench
         Run::Event::TestPassed.new prose
       end
 
-      def self.test_skipped
+      def self.test_skipped prose: nil
         prose = Prose.example prose, default: 'Some test'
 
         Run::Event::TestSkipped.new prose
