@@ -78,14 +78,6 @@ module TestBench
       end
     end
 
-    handle TestStarted do |event|
-      text = event.prose || Defaults.test_prose
-
-      if write.(text, level: Settings::OutputLevel.verbose, fg: :black, bold: true)
-        write.increase_indentation
-      end
-    end
-
     handle TestFailed do |event|
       text = event.prose || Defaults.test_prose
 
@@ -102,10 +94,6 @@ module TestBench
       text = event.prose || Defaults.test_prose
 
       write.(text, fg: :yellow)
-    end
-
-    handle TestFinished do |event|
-      write.decrease_indentation if output_level == Settings::OutputLevel.verbose
     end
   end
 end
