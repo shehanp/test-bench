@@ -9,8 +9,8 @@ context "Output" do
 
       Controls::Output::Write.configure(
         handle,
-        device,
         color: true,
+        device: device,
         output_level: :verbose
       )
 

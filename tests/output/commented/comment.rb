@@ -2,16 +2,18 @@ require_relative '../../test_init'
 
 context "Output" do
   context "Commented" do
-    event = TestBench::Run::Event::Commented.new 'Some comment'
+    handle = TestBench::Output::Handlers::Commented.new
 
-    output = TestBench::Output.new
+    device = StringIO.new
 
-    output.output_device = output_device = StringIO.new
+    Controls::Output::Write.configure handle, device: device
 
-    output.handle event
+    event = Controls::Event.commented
+
+    handle.(event)
 
     test "Nothing is written" do
-      assert output_device.string == ''
+      assert device.string == ''
     end
   end
 end

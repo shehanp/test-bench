@@ -47,10 +47,6 @@ module TestBench
 
     setting :reverse_backtraces
 
-    handle Commented do |event|
-      write.(event.prose, level: :verbose, fg: :white)
-    end
-
     handle ContextEntered do |event|
       text = event.prose
 

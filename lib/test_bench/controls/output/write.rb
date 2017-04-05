@@ -2,7 +2,7 @@ module TestBench
   module Controls
     module Output
       module Write
-        def self.example device=nil, color: nil, indentation: nil, output_level: nil
+        def self.example device: nil, color: nil, indentation: nil, output_level: nil
           write = TestBench::Output::Write.new
 
           write.color = color unless color.nil?
