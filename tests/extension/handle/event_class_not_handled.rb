@@ -9,7 +9,7 @@ context "Extension" do
 
       extension = cls.new
 
-      event = TestBench::Run::Event::Started.new
+      event = Controls::Event.example
 
       test "Name error is not raised" do
         begin

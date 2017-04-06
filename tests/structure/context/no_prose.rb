@@ -10,7 +10,7 @@ context "Structure" do
       end
 
       context "Entered event" do
-        event = TestBench::Run::Event::ContextEntered.new nil
+        event = Controls::Event.context_entered prose: :none
 
         test "Prose is nil" do
           assert structure.published?(event)
@@ -18,7 +18,7 @@ context "Structure" do
       end
 
       context "Exited event" do
-        event = TestBench::Run::Event::ContextExited.new nil
+        event = Controls::Event.context_exited prose: :none
 
         test "Prose is nil" do
           assert structure.published?(event)

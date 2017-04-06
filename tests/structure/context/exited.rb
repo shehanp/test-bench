@@ -6,11 +6,11 @@ context "Structure" do
       structure = Controls::Structure.example
 
       structure.instance_exec do
-        context "Some context"
+        context "Some Context"
       end
 
       test "Event is published" do
-        event = TestBench::Run::Event::ContextExited.new 'Some context'
+        event = Controls::Event.context_exited
 
         assert structure.published?(event)
       end

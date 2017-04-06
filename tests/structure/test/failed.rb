@@ -21,13 +21,13 @@ context "Structure" do
       end
 
       test "Failed event is published" do
-        event = TestBench::Run::Event::TestFailed.new 'Some test', error
+        event = Controls::Event.test_failed error: error
 
         assert structure.published?(event)
       end
 
       test "Error raised event is published" do
-        event = TestBench::Run::Event::ErrorRaised.new error
+        event = Controls::Event.error_raised error: error
 
         assert structure.published?(event)
       end

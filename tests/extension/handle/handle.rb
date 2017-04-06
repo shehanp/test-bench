@@ -2,6 +2,8 @@ require_relative '../../test_init'
 
 context "Extension" do
   context "Handle" do
+    event = Controls::Event.started
+
     context "0-arity" do
       cls = Class.new do
         include TestBench::Extension::Handle
@@ -12,8 +14,6 @@ context "Extension" do
       end
 
       extension = cls.new
-
-      event = TestBench::Run::Event::Started.new
 
       test "Handler method is invoked" do
         result = extension.handle event
@@ -33,8 +33,6 @@ context "Extension" do
 
       extension = cls.new
 
-      event = TestBench::Run::Event::Started.new
-
       test "Handler method is supplied event" do
         result = extension.handle event
 
@@ -51,8 +49,6 @@ context "Extension" do
       end
 
       extension = cls.new
-
-      event = TestBench::Run::Event::Started.new
 
       test "Argument error is raised" do
         begin

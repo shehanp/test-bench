@@ -21,7 +21,7 @@ context "Structure" do
       end
 
       test "Error raised event is published" do
-        event = TestBench::Run::Event::ErrorRaised.new error
+        event = Controls::Event.error_raised error: error
 
         assert structure.published?(event)
       end

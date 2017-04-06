@@ -12,7 +12,7 @@ context "Structure" do
         end
 
         context "Started event" do
-          event = TestBench::Run::Event::TestStarted.new nil
+          event = Controls::Event.test_started prose: :none
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -20,7 +20,7 @@ context "Structure" do
         end
 
         context "Passed event" do
-          event = TestBench::Run::Event::TestPassed.new nil
+          event = Controls::Event.test_passed prose: :none
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -28,7 +28,7 @@ context "Structure" do
         end
 
         context "Finished event" do
-          event = TestBench::Run::Event::TestFinished.new nil
+          event = Controls::Event.test_finished prose: :none
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -48,7 +48,7 @@ context "Structure" do
         end
 
         context "Failed event" do
-          event = TestBench::Run::Event::TestFailed.new nil, error
+          event = Controls::Event.test_failed prose: :none, error: error
 
           test "Prose is nil" do
             assert structure.published?(event)
@@ -64,7 +64,7 @@ context "Structure" do
         end
 
         context "Failed event" do
-          event = TestBench::Run::Event::TestSkipped.new nil
+          event = Controls::Event.test_skipped prose: :none
 
           test "Prose is nil" do
             assert structure.published?(event)

@@ -5,25 +5,25 @@ context "Structure" do
     context "Passed" do
       structure = Controls::Structure.example
 
-      structure.instance_exec do
+      structure.instance_eval <<~RUBY, 'some/file.rb', 11
         test "Some test" do
         end
-      end
+      RUBY
 
       test "Started event is published" do
-        event = TestBench::Run::Event::TestStarted.new 'Some test'
+        event = Controls::Event.test_started
 
         assert structure.published?(event)
       end
 
       test "Passed event is published" do
-        event = TestBench::Run::Event::TestPassed.new 'Some test'
+        event = Controls::Event.test_passed
 
         assert structure.published?(event)
       end
 
       test "Finished event is published" do
-        event = TestBench::Run::Event::TestFinished.new 'Some test'
+        event = Controls::Event.test_finished
 
         assert structure.published?(event)
       end

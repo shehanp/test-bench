@@ -1,6 +1,10 @@
 module TestBench
   module Controls
     module Event
+      def self.example
+        asserted
+      end
+
       def self.asserted
         Run::Event::Asserted.new
       end
@@ -31,7 +35,7 @@ module TestBench
         Run::Event::ContextExited.new prose
       end
 
-      def self.error_raised error=nil
+      def self.error_raised error: nil
         error ||= Error.example
 
         Run::Event::ErrorRaised.new error

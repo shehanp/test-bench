@@ -10,13 +10,13 @@ context "Structure" do
       end
 
       test "Started event is published" do
-        event = TestBench::Run::Event::TestStarted.new 'Some test'
+        event = Controls::Event.test_started
 
         assert structure.published?(event)
       end
 
       test "Skipped event is published" do
-        event = TestBench::Run::Event::TestSkipped.new 'Some test'
+        event = Controls::Event.test_skipped
 
         assert structure.published?(event)
       end

@@ -9,7 +9,7 @@ context "Structure" do
     end
 
     test "Commented event is published" do
-      event = TestBench::Run::Event::Commented.new 'Some comment'
+      event = Controls::Event.commented
 
       assert structure.published?(event)
     end
