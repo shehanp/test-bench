@@ -1,99 +1,59 @@
 module TestBench
   class Run
     module Event
-      Asserted = Class.new do
+      def self.define *attributes, &block
+        cls = Struct.new *attributes, :event_type
+
+        cls.class_exec do
+          include Event
+
+          extend EventType
+
+          prepend Initialize
+
+          include Digest
+        end
+
+        cls.class_exec &block unless block.nil?
+
+        cls
+      end
+
+      module Digest
         def digest
-          "Type: AssertionAsserted"
+          str = String.new
+
+          *members, event_type = self.members
+          members.unshift event_type
+
+          members.each do |member|
+            label = StringCasing::Pascal.(member.to_s)
+
+            value = __send__ member
+
+            str << ', ' unless str.empty?
+            str << "#{label}: #{value.inspect}"
+          end
+
+          str
         end
       end
 
-      AssertionPassed = Class.new do
-        def digest
-          "Type: AssertionPassed"
+      module Initialize
+        def initialize *;
+          super
+
+          self.event_type ||= self.class.event_type
         end
       end
 
-      AssertionFailed = Class.new do
-        def digest
-          "Type: AssertionFailed"
-        end
-      end
+      module EventType
+        def event_type
+          *, namespace = name.split '::'
 
-      Commented = Struct.new :prose do
-        def digest
-          "Type: Commented, Prose: #{prose || '(none)'}"
-        end
-      end
+          StringCasing::Underscore.(namespace)
 
-      ContextEntered = Struct.new :prose do
-        def digest
-          "Type: ContextEntered, Prose: #{prose || '(none)'}"
-        end
-      end
-
-      ContextExited = Struct.new :prose do
-        def digest
-          "Type: ContextExited, Prose: #{prose || '(none)'}"
-        end
-      end
-
-      ErrorRaised = Struct.new :error do
-        def digest
-          "Type: ErrorRaised, Error: #{error.class}, Message: #{error.message.inspect}"
-        end
-      end
-
-      FileEntered = Struct.new :path do
-        def digest
-          "Type: FileEntered, Path: #{path}"
-        end
-      end
-
-      FileExited = Struct.new :path do
-        def digest
-          "Type: FileExited, Path: #{path}"
-        end
-      end
-
-      Finished = Class.new do
-        def digest
-          "Type: Finished"
-        end
-      end
-
-      Started = Class.new do
-        def digest
-          "Type: Started"
-        end
-      end
-
-      TestFailed = Struct.new :prose, :error do
-        def digest
-          "Type: TestFailed, Prose: #{prose || '(none)'}, Error: #{error.class}, Message: #{error.message.inspect}"
-        end
-      end
-
-      TestFinished = Struct.new :prose do
-        def digest
-          "Type: TestFinished, Prose: #{prose || '(none)'}"
-        end
-      end
-
-      TestPassed = Struct.new :prose do
-        def digest
-          "Type: TestPassed, Prose: #{prose || '(none)'}"
-        end
-      end
-
-      TestSkipped = Struct.new :prose do
-        def digest
-          "Type: TestSkipped, Prose: #{prose || '(none)'}"
-        end
-      end
-
-      TestStarted = Struct.new :prose do
-        def digest
-          "Type: TestStarted, Prose: #{prose || '(none)'}"
+          namespace.to_sym
         end
       end
     end

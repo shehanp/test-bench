@@ -11,25 +11,9 @@ module TestBench
 
           *, namespace = event_class.name.split '::'
 
-          underscore_case = namespace.gsub Pattern.separator do |str|
-            str.downcase!
-
-            if str.length == 4
-              str.gsub! '::', '_'
-            elsif str.length == 2
-              str.insert 1, '_'
-            end
-
-            str
-          end
+          underscore_case = StringCasing::Underscore.(namespace)
 
           :"handle_#{underscore_case}"
-        end
-
-        module Pattern
-          def self.separator
-            @separator ||= %r{(?:\A|[a-z0-9](?:::)?)[A-Z]}
-          end
         end
       end
     end

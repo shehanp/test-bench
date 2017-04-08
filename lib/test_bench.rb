@@ -5,6 +5,12 @@ require 'set'
 require 'terminal_colors'
 
 # Core implementation
+require 'test_bench/logger'
+require 'test_bench/string_casing/camel'
+require 'test_bench/string_casing/capitalize'
+require 'test_bench/string_casing/pascal'
+require 'test_bench/string_casing/underscore'
+
 require 'test_bench/settings'
 require 'test_bench/settings/defaults'
 require 'test_bench/settings/environment/set'
@@ -22,10 +28,9 @@ require 'test_bench/extension/handle'
 require 'test_bench/extension/handle/macro'
 require 'test_bench/extension/handle/method_name'
 
-require 'test_bench/logger'
-
 require 'test_bench/run'
 require 'test_bench/run/event'
+require 'test_bench/run/event/list'
 require 'test_bench/run/registry'
 require 'test_bench/run/registry/key'
 require 'test_bench/run/subscriber'
