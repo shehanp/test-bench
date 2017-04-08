@@ -3,7 +3,7 @@ module TestBench
     module Handlers
       class Structure
         include Handle
-        include Run::Event
+        include Event
 
         def display_error
           @display_error ||= DisplayError.new

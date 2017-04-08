@@ -22,15 +22,15 @@ context "Structure" do
       end
 
       test "Passed event is not published" do
-        refute structure.published?(TestBench::Run::Event::TestPassed)
+        refute structure.published?(TestBench::Event::TestPassed)
       end
 
       test "Finished event is not published" do
-        refute structure.published?(TestBench::Run::Event::TestFinished)
+        refute structure.published?(TestBench::Event::TestFinished)
       end
 
       test "Failed event is not published" do
-        refute structure.published?(TestBench::Run::Event::TestFailed)
+        refute structure.published?(TestBench::Event::TestFailed)
       end
     end
   end

@@ -33,7 +33,7 @@ context "Structure" do
       end
 
       test "Test finished event is published" do
-        assert structure.published?(TestBench::Run::Event::TestFinished)
+        assert structure.published?(TestBench::Event::TestFinished)
       end
     end
   end

@@ -27,7 +27,7 @@ context "Structure" do
       end
 
       test "Context exited event is published" do
-        assert structure.published?(TestBench::Run::Event::ContextExited)
+        assert structure.published?(TestBench::Event::ContextExited)
       end
     end
   end

@@ -10,15 +10,15 @@ context "Structure" do
       end
 
       test "Asserted event is published" do
-        assert structure.published?(TestBench::Run::Event::Asserted)
+        assert structure.published?(TestBench::Event::Asserted)
       end
 
       test "Assertion passed event is published" do
-        assert structure.published?(TestBench::Run::Event::AssertionPassed)
+        assert structure.published?(TestBench::Event::AssertionPassed)
       end
 
       test "Assertion failed event is not published" do
-        refute structure.published?(TestBench::Run::Event::AssertionFailed)
+        refute structure.published?(TestBench::Event::AssertionFailed)
       end
     end
   end

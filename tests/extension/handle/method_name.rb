@@ -4,7 +4,7 @@ context "Extension" do
   context "Handle" do
     context "Method Name" do
       context do
-        event_class = TestBench::Run::Event::Started
+        event_class = TestBench::Event::Started
 
         method_name = TestBench::Extension::Handle::MethodName.get event_class
 
@@ -14,7 +14,7 @@ context "Extension" do
       end
 
       context "Event instance is supplied" do
-        event = TestBench::Run::Event::Started.new
+        event = TestBench::Event::Started.new
 
         method_name = TestBench::Extension::Handle::MethodName.get event
 

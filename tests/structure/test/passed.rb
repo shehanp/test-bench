@@ -29,11 +29,11 @@ context "Structure" do
       end
 
       test "Failed event is not published" do
-        refute structure.published?(TestBench::Run::Event::TestFailed)
+        refute structure.published?(TestBench::Event::TestFailed)
       end
 
       test "Skipped event is not published" do
-        refute structure.published?(TestBench::Run::Event::TestSkipped)
+        refute structure.published?(TestBench::Event::TestSkipped)
       end
     end
   end

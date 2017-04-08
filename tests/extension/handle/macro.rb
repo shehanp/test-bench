@@ -6,7 +6,7 @@ context "Extension" do
       cls = Class.new do
         include TestBench::Extension::Handle
 
-        handle TestBench::Run::Event::Started do
+        handle TestBench::Event::Started do
           :started
         end
       end
