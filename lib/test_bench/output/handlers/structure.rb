@@ -2,8 +2,10 @@ module TestBench
   class Output
     module Handlers
       class Structure
-        include Handle
+        include Extension::Handle
         include Event
+
+        include Write::Dependency
 
         def display_error
           @display_error ||= DisplayError.new
