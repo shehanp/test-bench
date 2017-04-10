@@ -5,13 +5,19 @@ context "Output" do
     context "Context Exited" do
       handle = TestBench::Output::Display.new
 
-      write = Controls::Output::Write.configure handle, indentation: 1
+      device = StringIO.new
+
+      write = Controls::Output::Write.configure handle, device: device, indentation: 2
 
       event = Controls::Event.context_exited
       handle.(event)
 
       test "Indentation is decreased" do
-        assert write.indentation == 0
+        assert write.indentation == 1
+      end
+
+      test "Nothing is written"do
+        assert device.string == ''
       end
     end
   end

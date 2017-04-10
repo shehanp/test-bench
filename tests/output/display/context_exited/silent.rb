@@ -5,8 +5,9 @@ context "Output" do
     context "Context Exited" do
       context "Silent output level" do
         handle = TestBench::Output::Display.new
+        handle.output_level = :silent
 
-        write = Controls::Output::Write.configure handle, indentation: 1, output_level: :silent
+        write = Controls::Output::Write.configure handle, indentation: 1
 
         event = Controls::Event.context_exited
         handle.(event)

@@ -5,8 +5,9 @@ context "Output" do
     context "Test Finished" do
       context "Verbose output level" do
         handle = TestBench::Output::Display.new
+        handle.output_level = :verbose
 
-        write = Controls::Output::Write.configure handle, indentation: 1, output_level: :verbose
+        write = Controls::Output::Write.configure handle, indentation: 1
 
         event = Controls::Event.test_finished
 

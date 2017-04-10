@@ -11,6 +11,8 @@ module TestBench
       end
       attr_writer :error
 
+      setting :output_level
+
       def configure
         self.write = writer = Write.build
         self.error = Error.build writer: writer
@@ -29,8 +31,10 @@ module TestBench
       end
 
       handle ContextExited do |event|
-        unless event.prose.nil? || write.output_level == Settings::OutputLevel.silent
-          write.decrease_indentation
+        unless event.prose.nil? || output_level == Settings::OutputLevel.silent
+          indentation = write.decrease_indentation
+
+          write.('') if indentation == 0
         end
       end
 
@@ -55,9 +59,7 @@ module TestBench
       handle TestFinished do |event|
         prose = event.prose || Defaults.test_prose
 
-        write.(prose, fg: :green)
-
-        if write.output_level == Settings::OutputLevel.verbose
+        if output_level == Settings::OutputLevel.verbose
           write.decrease_indentation
         end
       end
