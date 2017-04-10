@@ -5,10 +5,11 @@ context "Output" do
     context "Test Skipped" do
       context "Silent output level" do
         handle = TestBench::Output::Structure.new
+        handle.output_level = :silent
 
         device = StringIO.new
 
-        Controls::Output::Write.configure handle, device: device, output_level: :silent
+        Controls::Output::Write.configure handle, device: device
 
         event = Controls::Event.test_skipped
 

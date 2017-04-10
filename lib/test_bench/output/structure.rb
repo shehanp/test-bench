@@ -12,6 +12,9 @@ module TestBench
       attr_writer :display_error
 
       setting :output_level
+      def output_level
+        @output_level ||= Settings::OutputLevel.normal
+      end
 
       def configure
         self.write = writer = Write.build
@@ -19,7 +22,9 @@ module TestBench
       end
 
       handle Commented do |event|
-        write.(event.prose, level: Settings::OutputLevel.verbose, fg: :white)
+        if output_level == Settings::OutputLevel.verbose
+          write.(event.prose, fg: :white)
+        end
       end
 
       handle ContextEntered do |event|
@@ -46,7 +51,7 @@ module TestBench
       handle TestStarted do |event|
         prose = event.prose || Defaults.test_prose
 
-        if output_level == :verbose
+        if output_level == Settings::OutputLevel.verbose
           write.(prose, fg: :black, bold: true)
 
           write.increase_indentation
@@ -56,7 +61,9 @@ module TestBench
       handle TestFailed do |event|
         prose = event.prose || Defaults.test_prose
 
-        write.(prose, fg: :white, bg: :red, bold: true)
+        unless output_level == Settings::OutputLevel.silent
+          write.(prose, fg: :white, bg: :red, bold: true)
+        end
       end
 
       handle TestFinished do |event|
@@ -70,13 +77,17 @@ module TestBench
       handle TestPassed do |event|
         prose = event.prose || Defaults.test_prose
 
-        write.(prose, fg: :green)
+        unless output_level == Settings::OutputLevel.silent
+          write.(prose, fg: :green)
+        end
       end
 
       handle TestSkipped do |event|
         text = event.prose || Defaults.test_prose
 
-        write.(text, fg: :yellow)
+        unless output_level == Settings::OutputLevel.silent
+          write.(text, fg: :yellow)
+        end
       end
     end
   end

@@ -5,10 +5,11 @@ context "Output" do
     context "Commented" do
       context "Color" do
         handle = TestBench::Output::Structure.new
+        handle.output_level = :verbose
 
         device = StringIO.new
 
-        Controls::Output::Write.configure handle, color: true, device: device, output_level: :verbose
+        Controls::Output::Write.configure handle, color: true, device: device
 
         event = Controls::Event.commented
 

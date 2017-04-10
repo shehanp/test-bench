@@ -29,11 +29,7 @@ module TestBench
         instance
       end
 
-      def call text, level: nil, **color_arguments
-        level ||= Defaults.level
-
-        return unless write? level
-
+      def call text, **color_arguments
         output = String.new
 
         indentation.times do
@@ -67,26 +63,9 @@ module TestBench
         self.indentation += 1
       end
 
-      def write?(message_level)
-        case message_level
-        when OutputLevel.silent
-          true
-        when OutputLevel.normal
-          output_level != OutputLevel.silent
-        when OutputLevel.verbose
-          output_level == OutputLevel.verbose
-        end
-       end
-
-      OutputLevel = Settings::OutputLevel
-
       module Defaults
         def self.device
           $stdout
-        end
-
-        def self.level
-          OutputLevel.normal
         end
       end
     end
