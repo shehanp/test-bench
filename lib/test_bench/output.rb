@@ -2,6 +2,6 @@ module TestBench
   class Output
     include Extension
 
-    handle Handlers::Structure
+    handle Display
   end
 end
