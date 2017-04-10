@@ -53,8 +53,14 @@ module TestBench
         output
       end
 
-      def decrease_indentation
+      def decrease_indentation &block
         self.indentation -= 1
+
+        if indentation.zero?
+          block.() unless block.nil?
+        end
+
+        indentation
       end
 
       def increase_indentation

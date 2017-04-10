@@ -25,16 +25,17 @@ module TestBench
       handle ContextEntered do |event|
         return if event.prose.nil?
 
-        if write.(event.prose, fg: :green)
+        unless output_level == Settings::OutputLevel.silent
+          write.(event.prose, fg: :green)
           write.increase_indentation
         end
       end
 
       handle ContextExited do |event|
         unless event.prose.nil? || output_level == Settings::OutputLevel.silent
-          indentation = write.decrease_indentation
-
-          write.('') if indentation == 0
+          write.decrease_indentation do
+            write.('')
+          end
         end
       end
 
@@ -45,7 +46,9 @@ module TestBench
       handle TestStarted do |event|
         prose = event.prose || Defaults.test_prose
 
-        if write.(prose, level: Settings::OutputLevel.verbose, fg: :black, bold: true)
+        if output_level == :verbose
+          write.(prose, fg: :black, bold: true)
+
           write.increase_indentation
         end
       end
