@@ -2,6 +2,6 @@ module TestBench
   class Output
     include Extension
 
-    handle Display
+    handle Structure
   end
 end
