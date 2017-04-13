@@ -1,13 +1,13 @@
 module TestBench
   module Structure
     def assert subject, assertions_module=nil, &action
-      run = Run::Registry.get binding
+      run = Run::Registry::Global.get binding
 
       Assert.(TestBench::Assert, run, subject, assertions_module, &action)
     end
 
     def comment prose
-      run = Run::Registry.get binding
+      run = Run::Registry::Global.get binding
 
       run.commented prose
     end
@@ -17,7 +17,7 @@ module TestBench
         raise TypeError, "Prose must be a string"
       end
 
-      run = Run::Registry.get binding
+      run = Run::Registry::Global.get binding
 
       run.context_entered prose
 
@@ -31,7 +31,7 @@ module TestBench
     end
 
     def refute subject, assertions_module=nil, &action
-      run = Run::Registry.get binding
+      run = Run::Registry::Global.get binding
 
       Assert.(TestBench::Assert::Refute, run, subject, assertions_module, &action)
     end
@@ -41,7 +41,7 @@ module TestBench
         raise TypeError, "Prose must be a string"
       end
 
-      run = Run::Registry.get binding
+      run = Run::Registry::Global.get binding
 
       run.test_started prose
 

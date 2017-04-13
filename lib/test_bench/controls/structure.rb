@@ -21,7 +21,7 @@ module TestBench
           run.add_subscriber subscriber
 
           instance = new subscriber
-          Run::Registry.put run, instance
+          Run::Registry::Global.put run, instance
           instance
         end
 

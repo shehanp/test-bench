@@ -34,6 +34,7 @@ require 'test_bench/extension/handle/method_name'
 
 require 'test_bench/run'
 require 'test_bench/run/registry'
+require 'test_bench/run/registry/global'
 require 'test_bench/run/registry/key'
 require 'test_bench/run/subscriber'
 
