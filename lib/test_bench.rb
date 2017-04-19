@@ -52,6 +52,7 @@ require 'test_bench/output/write/dependency'
 require 'test_bench/output/defaults'
 require 'test_bench/output/display_error'
 require 'test_bench/output/display_error/filter_backtrace'
+require 'test_bench/output/exit_status'
 require 'test_bench/output/structure'
 
 require 'test_bench/output'
