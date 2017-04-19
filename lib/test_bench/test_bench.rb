@@ -3,16 +3,20 @@ module TestBench
     # Get the top-level object (i.e. 'main')
     main_object = TOPLEVEL_BINDING.receiver
 
+    # Get the global extension list; attach default output subsystem
+    list = Extension::List::Global
+    list.add TestBench::Output
+
     # Construct the run object used for the test run
     run = Run.build
 
-    # Bind the top-level object to this run instance
-    Run::Registry.put run, main_object
+    # Apply all extensions to this run object
+    list.extend run
 
-    # Attach the default output subsystem to the run
-    TestBench::Output.(run)
+    # Bind the top-level object (`main') to this run object
+    Run::Registry::Global.put run, main_object
 
-    # Adds context, test, comment, etc. to the top-level object
+    # Adds context, test, comment, etc. to the top-level object (`main')
     main_object.extend TestBench::Structure
 
     # Link the assertions module for procs to the top-level Proc namespace, so

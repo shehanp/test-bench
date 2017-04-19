@@ -28,6 +28,8 @@ require 'test_bench/event/module'
 require 'test_bench/event'
 
 require 'test_bench/extension'
+require 'test_bench/extension/list'
+require 'test_bench/extension/list/global'
 require 'test_bench/extension/handle'
 require 'test_bench/extension/handle/macro'
 require 'test_bench/extension/handle/method_name'

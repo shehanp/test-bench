@@ -120,10 +120,10 @@ module TestBench
     end
 
     def subscribed? receiver
-      observers.key? receiver
+      subscribers.key? receiver
     end
 
-    def observers
+    def subscribers
       @observer_peers
     end
   end
