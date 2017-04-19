@@ -23,13 +23,14 @@ require 'test_bench/assert/assertions_module/proc'
 require 'test_bench/assert/failed'
 require 'test_bench/assert/refute'
 
-require 'test_bench/event/define'
 require 'test_bench/event/module'
 require 'test_bench/event/publish'
 require 'test_bench/event/publish/registry'
 require 'test_bench/event/publish/registry/global'
 require 'test_bench/event/publish/registry/key'
 require 'test_bench/event/subscriber'
+
+require 'test_bench/event/define'
 require 'test_bench/event'
 
 require 'test_bench/extension'
