@@ -1,10 +1,10 @@
 require_relative '../../test_init'
 
-context "Run" do
+context "Event" do
   context "Subscriber" do
     context "Settings" do
       subscriber_class = Class.new do
-        include TestBench::Run::Subscriber
+        include TestBench::Event::Subscriber
 
         setting :abort_on_error
       end

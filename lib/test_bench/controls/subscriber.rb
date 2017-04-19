@@ -6,7 +6,7 @@ module TestBench
       end
 
       class Example
-        include TestBench::Run::Subscriber
+        include TestBench::Event::Subscriber
 
         def handle event
           events << event

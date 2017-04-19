@@ -1,10 +1,10 @@
 require_relative '../../test_init'
 
-context "Run" do
+context "Event" do
   context "Subscriber" do
     context "Add" do
       subscriber = Class.new do
-        include TestBench::Run::Subscriber
+        include TestBench::Event::Subscriber
       end.new
 
       settings = TestBench::Settings.new

@@ -1,5 +1,5 @@
 module TestBench
-  class Run
+  module Event
     module Subscriber
       def self.included cls
         cls.class_exec do

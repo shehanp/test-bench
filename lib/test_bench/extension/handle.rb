@@ -7,7 +7,7 @@ module TestBench
 
           extend Macro
 
-          include Run::Subscriber
+          include Event::Subscriber
 
           include Call
         end

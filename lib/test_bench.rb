@@ -25,6 +25,7 @@ require 'test_bench/assert/refute'
 
 require 'test_bench/event/define'
 require 'test_bench/event/module'
+require 'test_bench/event/subscriber'
 require 'test_bench/event'
 
 require 'test_bench/extension'
@@ -38,7 +39,6 @@ require 'test_bench/run'
 require 'test_bench/run/registry'
 require 'test_bench/run/registry/global'
 require 'test_bench/run/registry/key'
-require 'test_bench/run/subscriber'
 
 require 'test_bench/structure'
 require 'test_bench/structure/assert'
