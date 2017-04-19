@@ -6,14 +6,14 @@ context "Extension" do
       extension_1 = Controls::Extension.example
       extension_2 = Controls::Extension.example
 
-      run = TestBench::Run.new
+      publisher = TestBench::Event::Publish.new
 
       list = TestBench::Extension::List.new extension_1, extension_2
-      list.extend run
+      list.extend publisher
 
-      test "Run is extended by each extension" do
-        assert extension_1.extended?(run)
-        assert extension_2.extended?(run)
+      test "Publisher is extended by each extension" do
+        assert extension_1.extended?(publisher)
+        assert extension_2.extended?(publisher)
       end
     end
   end

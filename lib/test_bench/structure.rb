@@ -1,15 +1,15 @@
 module TestBench
   module Structure
     def assert subject, assertions_module=nil, &action
-      run = Run::Registry::Global.get binding
+      publisher = Event::Publish::Registry::Global.get binding
 
-      Assert.(TestBench::Assert, run, subject, assertions_module, &action)
+      Assert.(TestBench::Assert, publisher, subject, assertions_module, &action)
     end
 
     def comment prose
-      run = Run::Registry::Global.get binding
+      publisher = Event::Publish::Registry::Global.get binding
 
-      run.commented prose
+      publisher.commented prose
     end
 
     def context prose=nil, &block
@@ -17,23 +17,23 @@ module TestBench
         raise TypeError, "Prose must be a string"
       end
 
-      run = Run::Registry::Global.get binding
+      publisher = Event::Publish::Registry::Global.get binding
 
-      run.context_entered prose
+      publisher.context_entered prose
 
       begin
         block.() unless block.nil?
       rescue => error
-        run.error_raised error
+        publisher.error_raised error
       ensure
-        run.context_exited prose
+        publisher.context_exited prose
       end
     end
 
     def refute subject, assertions_module=nil, &action
-      run = Run::Registry::Global.get binding
+      publisher = Event::Publish::Registry::Global.get binding
 
-      Assert.(TestBench::Assert::Refute, run, subject, assertions_module, &action)
+      Assert.(TestBench::Assert::Refute, publisher, subject, assertions_module, &action)
     end
 
     def test prose=nil, &block
@@ -41,25 +41,25 @@ module TestBench
         raise TypeError, "Prose must be a string"
       end
 
-      run = Run::Registry::Global.get binding
+      publisher = Event::Publish::Registry::Global.get binding
 
-      run.test_started prose
+      publisher.test_started prose
 
       if block.nil?
-        run.test_skipped prose
+        publisher.test_skipped prose
         return
       end
 
       begin
         block.()
-        run.test_passed prose
+        publisher.test_passed prose
 
       rescue => error
-        run.error_raised error
-        run.test_failed error, prose
+        publisher.error_raised error
+        publisher.test_failed error, prose
 
       ensure
-        run.test_finished prose
+        publisher.test_finished prose
       end
     end
   end

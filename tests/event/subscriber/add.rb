@@ -9,12 +9,12 @@ context "Event" do
 
       settings = TestBench::Settings.new
 
-      run = TestBench::Run.new
+      publisher = TestBench::Event::Publish.new
 
-      run.add_subscriber subscriber
+      publisher.add_subscriber subscriber
 
-      test "Subscriber is added to list of observers of run" do
-        assert run.count_observers == 1
+      test "Subscriber is added to list of observers" do
+        assert publisher.count_observers == 1
       end
     end
   end

@@ -15,13 +15,13 @@ module TestBench
         end
 
         def self.build
-          run = Run.new
+          publish = TestBench::Event::Publish.new
 
           subscriber = Subscriber.example
-          run.add_subscriber subscriber
+          publish.add_subscriber subscriber
 
           instance = new subscriber
-          Run::Registry::Global.put run, instance
+          TestBench::Event::Publish::Registry::Global.put publish, instance
           instance
         end
 

@@ -1,13 +1,13 @@
 require_relative '../test_init'
 
 context "Extension" do
-  run = TestBench::Run.new
+  publisher = TestBench::Event::Publish.new
 
   extension = Controls::Extension.example
 
-  extension.(run)
+  extension.(publisher)
 
-  test "Each handler subscribes to run" do
-    assert run.subscribed?(extension.handlers[0])
+  test "Each handler subscribes to publisher" do
+    assert publisher.subscribed?(extension.handlers[0])
   end
 end
