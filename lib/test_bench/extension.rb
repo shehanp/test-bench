@@ -17,9 +17,9 @@ module TestBench
     def configure
     end
 
-    def call run
+    def subscribe publisher
       handlers.each do |handler|
-        run.add_subscriber handler
+        publisher.add_subscriber handler
       end
     end
 
@@ -46,9 +46,9 @@ module TestBench
     end
 
     module Call
-      def call run
+      def call publisher
         instance = build
-        instance.(run)
+        instance.(publisher)
       end
     end
   end

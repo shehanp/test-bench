@@ -8,10 +8,10 @@ module TestBench
           table[key]
         end
 
-        def put run, receiver
+        def put publisher, receiver
           key = Key.(receiver)
 
-          table[key] = run
+          table[key] = publisher
         end
 
         def table

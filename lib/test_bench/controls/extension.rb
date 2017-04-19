@@ -10,9 +10,9 @@ module TestBench
 
         handle Handler::Example
 
-        def extended? run
+        def subscribed? publisher
           handlers.all? do |handler|
-            run.subscribers.include? handler
+            publisher.subscribers.include? handler
           end
         end
       end

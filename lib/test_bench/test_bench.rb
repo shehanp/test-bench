@@ -7,14 +7,14 @@ module TestBench
     list = Extension::List::Global
     list.add TestBench::Output
 
-    # Construct the run object used for the test run
-    run = Run.build
+    # Construct the publisher used for the test run
+    publisher = Event::Publish.build
 
-    # Apply all extensions to this run object
-    list.extend run
+    # Subscribe all extensions to this publisher
+    list.subscribe publisher
 
-    # Bind the top-level object (`main') to this run object
-    Run::Registry::Global.put run, main_object
+    # Bind the top-level object (`main') to this publisher
+    Event::Publish::Registry::Global.put publisher, main_object
 
     # Adds context, test, comment, etc. to the top-level object (`main')
     main_object.extend TestBench::Structure

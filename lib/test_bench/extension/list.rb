@@ -21,9 +21,9 @@ module TestBench
         end
       end
 
-      def extend run
+      def subscribe publisher
         extensions.each do |extension|
-          extension.(run)
+          extension.subscribe publisher
         end
       end
     end
