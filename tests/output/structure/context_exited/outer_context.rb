@@ -5,14 +5,14 @@ context "Output" do
     context "Context Exited" do
       context "Outer Context" do
         context do
-          handle = TestBench::Output::Structure.new
+          structure = TestBench::Output::Structure.new
 
           device = StringIO.new
 
-          write = Controls::Output::Write.configure handle, device: device, indentation: 1
+          write = Controls::Output::Write.configure structure, device: device, indentation: 1
 
           event = Controls::Event.context_exited
-          handle.(event)
+          structure.(event)
 
           test "Indentation is decreased" do
             assert write.indentation == 0
@@ -24,15 +24,15 @@ context "Output" do
         end
 
         context "Silent output level" do
-          handle = TestBench::Output::Structure.new
-          handle.output_level = :silent
+          structure = TestBench::Output::Structure.new
+          structure.output_level = :silent
 
           device = StringIO.new
 
-          write = Controls::Output::Write.configure handle, device: device, indentation: 0
+          write = Controls::Output::Write.configure structure, device: device, indentation: 0
 
           event = Controls::Event.context_exited
-          handle.(event)
+          structure.(event)
 
           assert write.indentation == 0
 

@@ -4,12 +4,12 @@ context "Output" do
   context "Structure" do
     context "Context Exited" do
       context "No prose" do
-        handle = TestBench::Output::Structure.new
+        structure = TestBench::Output::Structure.new
 
-        write = Controls::Output::Write.configure handle, indentation: 1
+        write = Controls::Output::Write.configure structure, indentation: 1
 
         event = Controls::Event.context_exited prose: :none
-        handle.(event)
+        structure.(event)
 
         test "Indentation is unchanged" do
           assert write.indentation == 1

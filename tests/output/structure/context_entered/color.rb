@@ -4,15 +4,15 @@ context "Output" do
   context "Structure" do
     context "Context Entered" do
       context "Color" do
-        handle = TestBench::Output::Structure.new
+        structure = TestBench::Output::Structure.new
 
         device = StringIO.new
 
-        Controls::Output::Write.configure handle, device: device, color: true
+        Controls::Output::Write.configure structure, device: device, color: true
 
         event = Controls::Event.context_entered
 
-        handle.(event)
+        structure.(event)
 
         test "Prose is written in green" do
           control_string = TerminalColors::Apply.("Some Context", fg: :green)

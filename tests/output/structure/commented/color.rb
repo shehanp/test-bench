@@ -4,16 +4,16 @@ context "Output" do
   context "Structure" do
     context "Commented" do
       context "Color" do
-        handle = TestBench::Output::Structure.new
-        handle.output_level = :verbose
+        structure = TestBench::Output::Structure.new
+        structure.output_level = :verbose
 
         device = StringIO.new
 
-        Controls::Output::Write.configure handle, color: true, device: device
+        Controls::Output::Write.configure structure, color: true, device: device
 
         event = Controls::Event.commented
 
-        handle.(event)
+        structure.(event)
 
         test "White" do
           control_string = "#{TerminalColors::Apply.('Some comment', fg: :white)}\n"

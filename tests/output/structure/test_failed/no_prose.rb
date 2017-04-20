@@ -4,15 +4,15 @@ context "Output" do
   context "Structure" do
     context "Test Failed" do
       context "No Prose" do
-        handle = TestBench::Output::Structure.new
+        structure = TestBench::Output::Structure.new
 
         device = StringIO.new
 
-        Controls::Output::Write.configure handle, device: device
+        Controls::Output::Write.configure structure, device: device
 
         event = Controls::Event.test_failed prose: :none
 
-        handle.(event)
+        structure.(event)
 
         test "'Test' is written" do
           assert device.string == "Test\n"

@@ -4,15 +4,15 @@ context "Output" do
   context "Structure" do
     context "Test Skipped" do
       context "Color" do
-        handle = TestBench::Output::Structure.new
+        structure = TestBench::Output::Structure.new
 
         device = StringIO.new
 
-        Controls::Output::Write.configure handle, device: device, color: true
+        Controls::Output::Write.configure structure, device: device, color: true
 
         event = Controls::Event.test_skipped
 
-        handle.(event)
+        structure.(event)
 
         test "Prose is written in yellow" do
           control_string = "#{TerminalColors::Apply.('Some test', fg: :yellow)}\n"

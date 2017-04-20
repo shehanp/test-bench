@@ -3,15 +3,15 @@ require_relative '../../../test_init'
 context "Output" do
   context "Structure" do
     context "Test Started" do
-      handle = TestBench::Output::Structure.new
+      structure = TestBench::Output::Structure.new
 
       device = StringIO.new
 
-      write = Controls::Output::Write.configure handle, device: device, indentation: 0
+      write = Controls::Output::Write.configure structure, device: device, indentation: 0
 
       event = Controls::Event.test_started
 
-      handle.(event)
+      structure.(event)
 
       test "Nothing is written" do
         assert device.string == ''

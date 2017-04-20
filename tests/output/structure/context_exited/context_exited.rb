@@ -3,14 +3,14 @@ require_relative '../../../test_init'
 context "Output" do
   context "Structure" do
     context "Context Exited" do
-      handle = TestBench::Output::Structure.new
+      structure = TestBench::Output::Structure.new
 
       device = StringIO.new
 
-      write = Controls::Output::Write.configure handle, device: device, indentation: 2
+      write = Controls::Output::Write.configure structure, device: device, indentation: 2
 
       event = Controls::Event.context_exited
-      handle.(event)
+      structure.(event)
 
       test "Indentation is decreased" do
         assert write.indentation == 1

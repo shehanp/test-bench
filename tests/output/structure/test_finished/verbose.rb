@@ -4,14 +4,14 @@ context "Output" do
   context "Structure" do
     context "Test Finished" do
       context "Verbose output level" do
-        handle = TestBench::Output::Structure.new
-        handle.output_level = :verbose
+        structure = TestBench::Output::Structure.new
+        structure.output_level = :verbose
 
-        write = Controls::Output::Write.configure handle, indentation: 1
+        write = Controls::Output::Write.configure structure, indentation: 1
 
         event = Controls::Event.test_finished
 
-        handle.(event)
+        structure.(event)
 
         test "Indentation is decreased" do
           assert write.indentation == 0

@@ -4,16 +4,16 @@ context "Output" do
   context "Structure" do
     context "Test Started" do
       context "Verbose output level" do
-        handle = TestBench::Output::Structure.new
-        handle.output_level = :verbose
+        structure = TestBench::Output::Structure.new
+        structure.output_level = :verbose
 
         device = StringIO.new
 
-        write = Controls::Output::Write.configure handle, device: device, indentation: 0
+        write = Controls::Output::Write.configure structure, device: device, indentation: 0
 
         event = Controls::Event.test_started
 
-        handle.(event)
+        structure.(event)
 
         test "Prose is written" do
           assert device.string == "Some test\n"

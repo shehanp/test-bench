@@ -4,13 +4,13 @@ context "Output" do
   context "Structure" do
     context "Context Exited" do
       context "Silent output level" do
-        handle = TestBench::Output::Structure.new
-        handle.output_level = :silent
+        structure = TestBench::Output::Structure.new
+        structure.output_level = :silent
 
-        write = Controls::Output::Write.configure handle, indentation: 1
+        write = Controls::Output::Write.configure structure, indentation: 1
 
         event = Controls::Event.context_exited
-        handle.(event)
+        structure.(event)
 
         test "Indentation is unchanged" do
           assert write.indentation == 1
