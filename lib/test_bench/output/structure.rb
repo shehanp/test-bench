@@ -2,14 +2,10 @@ module TestBench
   class Output
     class Structure
       include Extension::Handle
-      include Event
-
       include Write::Dependency
+      include DisplayError::Dependency
 
-      def display_error
-        @display_error ||= DisplayError.new
-      end
-      attr_writer :display_error
+      include Event
 
       setting :output_level
       def output_level
@@ -17,8 +13,9 @@ module TestBench
       end
 
       def configure
-        self.write = writer = Write.build
-        self.display_error = DisplayError.build writer: writer
+        writer = Write.configure self
+
+        DisplayError.configure self, writer: writer
       end
 
       handle Commented do |event|

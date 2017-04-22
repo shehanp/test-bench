@@ -26,6 +26,18 @@ module TestBench
         end
 
         module Text
+          def self.example indentation: nil
+            indentation ||= 0
+
+            text = filtered
+
+            lines = text.each_line.map do |line|
+              "#{'  ' * indentation}#{line}\n"
+            end
+
+            lines.join
+          end
+
           def self.filtered
             <<~TEXT
             #{Path.example}:3:in `baz': Some error (#{Example})

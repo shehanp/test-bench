@@ -17,8 +17,16 @@ module TestBench
         instance
       end
 
-      def self.call error, writer: nil, settings: nil
-        instance = build writer: writer, settings: settings
+      def self.configure receiver, *arguments
+        instance = build *arguments
+
+        receiver.public_send :display_error=, instance
+
+        instance
+      end
+
+      def self.call error, *arguments
+        instance = build *arguments
         instance.(error)
       end
 
@@ -48,6 +56,10 @@ module TestBench
         else
           FilterBacktrace.(error.backtrace)
         end
+      end
+
+      def device
+        write.device
       end
     end
   end

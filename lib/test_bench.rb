@@ -46,13 +46,19 @@ require 'test_bench/structure/assert'
 require 'test_bench/test_bench'
 
 # Output & bundled extensions
+require 'test_bench/output/clock'
+require 'test_bench/output/clock/dependency'
+
 require 'test_bench/output/write'
 require 'test_bench/output/write/dependency'
 
-require 'test_bench/output/defaults'
 require 'test_bench/output/display_error'
+require 'test_bench/output/display_error/dependency'
 require 'test_bench/output/display_error/filter_backtrace'
+
+require 'test_bench/output/defaults'
 require 'test_bench/output/exit_status'
 require 'test_bench/output/structure'
+require 'test_bench/output/summary'
 
 require 'test_bench/output'

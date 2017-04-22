@@ -3,6 +3,7 @@ module TestBench
     include Extension
 
     handle Structure
+    handle Summary
     handle ExitStatus
   end
 end

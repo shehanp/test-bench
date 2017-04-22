@@ -29,6 +29,14 @@ module TestBench
         instance
       end
 
+      def self.configure receiver, *arguments
+        instance = build *arguments
+
+        receiver.public_send :write=, instance
+
+        instance
+      end
+
       def call text, **color_arguments
         output = String.new
 
