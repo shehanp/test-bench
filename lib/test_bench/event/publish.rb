@@ -65,6 +65,18 @@ module TestBench
         event
       end
 
+      def file_entered path
+        event = Event::FileEntered.new path
+        publish event
+        event
+      end
+
+      def file_exited path
+        event = Event::FileExited.new path
+        publish event
+        event
+      end
+
       def finished
         event = Event::Finished.new
         publish event
