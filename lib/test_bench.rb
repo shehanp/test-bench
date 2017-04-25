@@ -33,6 +33,8 @@ require 'test_bench/event/subscriber'
 require 'test_bench/event/define'
 require 'test_bench/event'
 
+require 'test_bench/run/script'
+
 require 'test_bench/extension'
 require 'test_bench/extension/list'
 require 'test_bench/extension/list/global'
